@@ -31,8 +31,6 @@ export const __join = createAsyncThunk(
     "members/__join",
     async (payload, thunkAPI) => {
         try {
-
-
             console.log("joinAX payload", payload);
 
             loginApis.joinAX(payload)
