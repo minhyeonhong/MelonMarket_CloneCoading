@@ -6,12 +6,12 @@ const instance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     //baseURL: process.env.REACT_APP_API_LOCAL_URL,
     headers: {
-        "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access_Token": getCookie("token"),
-        "Access-Control-Allow-Origin": "*",
+        //"content-type": "application/json;charset=UTF-8",
+        //accept: "application/json",
+        //"Access_Token": getCookie("token") === undefined ? "" : getCookie("token"),
+        //"Access-Control-Allow-Origin": "*",
     },
-    withCredentials: true,
+    //withCredentials: true,
 });
 
 export const loginApis = {

@@ -1,17 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
 import loginApis from "../../apis/apiInstance"
-
+import axios from "axios";
+import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 
 export const __login = createAsyncThunk(
     "members/__login",
     async (payload, thunkAPI) => {
         try {
-            console.log("loginAX payload", payload);
-            const response = loginApis.loginAX(payload);
+            console.log("getCookie", getCookie("token"));
+            //const response = loginApis.loginAX(payload);
 
-            console.log("loginAX response", response);
-
+            //loginApis.loginAX(JSON.stringify(payload))
+            loginApis.loginAX(payload)
+                .then((response) => {
+                    console.log("loginAX response", response);
+                })
+                .catch((error) => {
+                    console.log("loginAX error", error);
+                })
 
             // return thunkAPI.fulfillWithValue(response.data);
         } catch (error) {
@@ -24,10 +31,19 @@ export const __join = createAsyncThunk(
     "members/__join",
     async (payload, thunkAPI) => {
         try {
-            console.log("joinAX payload", payload);
-            const response = loginApis.joinAX(payload);
 
-            console.log("joinAX response", response);
+
+            console.log("joinAX payload", payload);
+
+            loginApis.joinAX(payload)
+                .then((response) => {
+                    console.log("joinAX response", response);
+                })
+                .catch((error) => {
+                    console.log("joinAX error", error);
+                })
+
+
 
             //console.log("response", response)
 
