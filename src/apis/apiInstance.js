@@ -2,15 +2,16 @@ import axios from "axios";
 import { setCookie, getCookie, delCookie } from "../cookie/cookie";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  //baseURL: process.env.REACT_APP_API_LOCAL_URL,
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json",
-    Access_Token: getCookie("token"),
-    "Access-Control-Allow-Origin": "*",
-  },
-  withCredentials: true,
+
+    baseURL: process.env.REACT_APP_API_URL,
+    //baseURL: process.env.REACT_APP_API_LOCAL_URL,
+    headers: {
+        //"content-type": "application/json;charset=UTF-8",
+        //accept: "application/json",
+        //"Access_Token": getCookie("token") === undefined ? "" : getCookie("token"),
+        //"Access-Control-Allow-Origin": "*",
+    },
+    //withCredentials: true,
 });
 
 export const loginApis = {
