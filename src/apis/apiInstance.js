@@ -3,8 +3,8 @@ import { setCookie, getCookie, delCookie } from "../cookie/cookie"
 
 
 const instance = axios.create({
-    //baseURL: process.env.REACT_APP_API_URL,
-    baseURL: process.env.REACT_APP_API_LOCAL_URL,
+    baseURL: process.env.REACT_APP_API_URL,
+    //baseURL: process.env.REACT_APP_API_LOCAL_URL,
     headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -69,3 +69,6 @@ export const contentsApis = {
 //             alert(err);
 //         });
 // };
+
+
+export default loginApis;

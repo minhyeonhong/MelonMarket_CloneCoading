@@ -11,7 +11,7 @@ function Header() {
     const dispatch = useDispatch();
 
     const { modal } = useSelector(state => state.membersSlice);
-
+    //모달 상태값을 바꾸기 위해
     const modalToggle = () => {
         dispatch(modalTogle(!modal));
     }
