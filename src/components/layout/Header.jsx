@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 
+import { useSelector, useDispatch } from "react-redux";
+import { modalTogle } from "../../redux/modules/membersSlice"
+
 function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { modal } = useSelector(state => state.membersSlice);
+    //모달 상태값을 바꾸기 위해
+    const modalToggle = () => {
+        dispatch(modalTogle(!modal));
+    }
 
     return (
         <HeadContainer>
@@ -15,8 +25,7 @@ function Header() {
             <StNavWrap>
                 {
                     localStorage.getItem("token") === null ?
-                        <StNavItem onClick={() => { navigate("/") }}>Login</StNavItem>
-
+                        <StNavItem onClick={() => { modalToggle() }}>Login</StNavItem>
                         :
                         <>
                             <StNavItem onClick={() => {
@@ -34,7 +43,7 @@ function Header() {
 }
 export default Header;
 
-const HeadContainer = styled.section`
+const HeadContainer = styled.div`
   display: flex;
   flex-direction : row;
   justify-content: space-around;
