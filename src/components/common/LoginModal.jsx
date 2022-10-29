@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -7,12 +7,14 @@ import { modalTogle, __join, __login } from "../../redux/modules/membersSlice";
 import Input from "../elements/Input";
 import Button from "../elements/Button";
 import useInput from "../../hooks/useInput";
-import { useState } from "react";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
 
   const { modal } = useSelector((state) => state.membersSlice);
+  const closeModal = () => {
+    dispatch(modalTogle(!modal));
+  };
 
   const [join, setJoin, joinHandle] = useInput({
     email: "",
@@ -21,15 +23,14 @@ const LoginModal = () => {
     accountName: "",
     phoneNum: "",
   });
+
   const [login, setLogin, loginHandle] = useInput({
     email: "",
     accountPw: "",
   });
 
-  const closeModal = () => {
-    dispatch(modalTogle(!modal));
-  };
 
+  //회원가입 버튼 딸깍
   const signUpHandle = () => {
     const obj = {
       email: join.email,
@@ -42,6 +43,28 @@ const LoginModal = () => {
     dispatch(__join(obj));
   };
 
+  const [duplicateCheck, setDuplicateCheck] = useState({
+
+  });
+
+  //이메일 중복검사
+  const EmailHandler = (event) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+    return emailRegex.test(event);
+  };
+
+  //비밀번호 형식검사
+  const PasswordHandler = (event) => {
+    const passwordRegex =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+    return passwordRegex.test(event);
+  }
+
+
+  //로그인 버튼 딸깍
   const signHandle = () => {
     const obj = {
       email: login.email,
@@ -94,6 +117,8 @@ const LoginModal = () => {
             type='email'
             placeholder='아이디를 입력하여 주십시오'
           />
+          <Valitext textColor={"#f96854"}>{!EmailHandler(join.email) ? 'Email 형식이 아니에요' : ""}</Valitext>
+          <Valitext textColor={"#22B14C"}>{EmailHandler(join.email) ? 'Email 형식이에요' : ""}</Valitext>
           <Input
             size='large'
             onChange={joinHandle}
@@ -101,8 +126,9 @@ const LoginModal = () => {
             name='accountPw'
             value={join.accountPw || ""}
             type='password'
-            placeholder='비밀번호를 입력하여 주십시오'
+            placeholder='비밀번호를 영문 숫자 특수문자 조합으로 8자이상으로 입력'
           />
+          <Valitext textColor={"#f96854"}>{!PasswordHandler(join.accountPw) && join.accountPw !== "" ? '비밀번호 형식을 맞춰주세요' : ""}</Valitext>
           <Input
             size='large'
             style={{ marginTop: "20px" }}
@@ -149,6 +175,14 @@ const LoginModal = () => {
 
 export default LoginModal;
 
+const Valitext = styled.div`
+width: 100%;
+margin-left: 10px;
+padding: 0px;
+font-size: 0.7rem;
+color: ${props => props.textColor};
+`
+
 const StModalBackground = styled.div`
   position: absolute;
   top: 0;
@@ -183,6 +217,7 @@ const StLoginWrap = styled.div`
 const StJoinWrap = styled.div`
   display: ${(props) => (props.toggle ? "none" : "flex")};
   width: 100%;
+  text-align : center;
   flex-direction: column;
   justify-content: center;
   align-items: center;

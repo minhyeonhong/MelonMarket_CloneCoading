@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 
 import { useSelector, useDispatch } from "react-redux";
-import { modalTogle } from "../../redux/modules/membersSlice"
+import { modalTogle, __login, __join } from "../../redux/modules/membersSlice"
 
 function Header() {
     const navigate = useNavigate();
