@@ -11,9 +11,9 @@ import useInput from "../../hooks/useInput";
 const LoginModal = () => {
   const dispatch = useDispatch();
 
-  const { modal } = useSelector((state) => state.membersSlice);
+  const { loginModal } = useSelector((state) => state.membersSlice);
   const closeModal = () => {
-    dispatch(modalTogle(!modal));
+    dispatch(modalTogle(!loginModal));
   };
 
   const [join, setJoin, joinHandle] = useInput({
@@ -41,6 +41,8 @@ const LoginModal = () => {
     };
 
     dispatch(__join(obj));
+
+
   };
 
   const [duplicateCheck, setDuplicateCheck] = useState({
