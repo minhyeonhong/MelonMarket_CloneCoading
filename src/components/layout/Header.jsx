@@ -5,15 +5,22 @@ import { IoMdHome } from "react-icons/io";
 import melonlogo from "../../assets/melonlogo.png"
 import { useSelector, useDispatch } from "react-redux";
 import { modalTogle, __login, __join } from "../../redux/modules/membersSlice"
+import { cntWriteModalTogle } from "../../redux/modules/contentsSlice"
 
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { modal } = useSelector(state => state.membersSlice);
-    //모달 상태값을 바꾸기 위해
-    const modalToggle = () => {
-        dispatch(modalTogle(!modal));
+    //모달 상태값으로 띄우기 위해
+    const { loginModal } = useSelector(state => state.membersSlice);
+    const { cntWriteModal } = useSelector(state => state.contentsSlice);
+    //로그인모달 상태값을 바꾸기 위해
+    const loginModalToggle = () => {
+        dispatch(modalTogle(!loginModal));
+    }
+    //글작성모달 상태값을 바꾸기 위해
+    const cntWriteModalToggle = () => {
+        dispatch(cntWriteModalTogle(!cntWriteModal));
     }
 
     return (
@@ -27,20 +34,8 @@ function Header() {
                 <div style={{ margin: "20px", fontSize: "30px" }}>멜론 마켓</div>
             </StHomeBtn>
             <StNavWrap>
-                {
-                    localStorage.getItem("token") === null ?
-                        <StNavItem onClick={() => { modalToggle() }}>Login</StNavItem>
-                        :
-                        <>
-                            <StNavItem onClick={() => {
-                                localStorage.clear();
-                                navigate("/");
-                            }
-                            }>Logout</StNavItem>
-                            <StNavItem onClick={() => { navigate("/MyList") }}>My List</StNavItem>
-                            <StNavItem onClick={() => { navigate("/Write") }}>Write</StNavItem>
-                        </>
-                }
+                <StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem>
+                <StNavItem onClick={() => { cntWriteModalToggle() }}>글작성</StNavItem>
             </StNavWrap>
         </HeadContainer>
     );

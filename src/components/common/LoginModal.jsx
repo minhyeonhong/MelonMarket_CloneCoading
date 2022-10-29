@@ -10,9 +10,9 @@ import { __loginCheck } from '../../redux/modules/membersSlice';
 const LoginModal = () => {
   const dispatch = useDispatch();
 
-  const { modal } = useSelector((state) => state.membersSlice);
+  const { loginModal } = useSelector((state) => state.membersSlice);
   const closeModal = () => {
-    dispatch(modalTogle(!modal));
+    dispatch(modalTogle(!loginModal));
   };
 
   const [join, setJoin, joinHandle] = useInput({
