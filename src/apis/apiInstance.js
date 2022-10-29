@@ -40,20 +40,8 @@ export const loginApis = {
 };
 
 export const contentsApis = {
-    //로그인
-    loginAX: (loginInfo) => nhinstance.post(`/auth/login`, loginInfo),
-    //회원가입
-    joinAX: (joinInfo) => nhinstance.post(`/auth/signup`, joinInfo),
-    //회원가입 아이디 중복 체크
-    loginCheckAX: (email) => nhinstance.post(`/auth/idCheck`, email),
-    //회원가입 낙네임 중복 체크
-    loginCheckAX: (name) => nhinstance.post(`/auth/nameCheck`, name),
+    //컨텐츠
 
-    //게시글 삭제
-    getDeletePostAX: (id) => nhinstance.delete(`/detail/delete?boardId=${id}`),
-
-    //마이페이지 계정 수정 페이지
-    putUserInfoAX: (userinfo) => nhinstance.put("/my/update", userinfo),
 };
 
 //이런식으로 쓴다

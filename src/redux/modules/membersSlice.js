@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
 import loginApis from "../../apis/apiInstance"
-import axios from "axios";
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 
 export const __login = createAsyncThunk(
@@ -56,12 +55,12 @@ export const membersSlice = createSlice({
     name: "members",
     initialState: {
         member: [],
-        modal: false
+        loginModal: false
     },
     reducers: {
         //모달 토글
         modalTogle(state, action) {
-            state.modal = !state.modal;
+            state.loginModal = !state.loginModal;
         },
     },
     extraReducers: {

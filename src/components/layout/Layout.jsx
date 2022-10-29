@@ -5,16 +5,21 @@ import Footer from './Footer';
 
 import { useSelector } from "react-redux";
 import LoginModal from "../common/LoginModal";
+import CntWriteModal from "../common/CntWriteModal";
 
 const Layout = (props) => {
-    //모달 상태값으로 띄우기 위해
-    const { modal } = useSelector(state => state.membersSlice);
+    //로그인 모달 상태값으로 띄우기 위해
+    const { loginModal } = useSelector(state => state.membersSlice);
+    //작성글 모달 상태값으로 띄우기 위해
+    const { cntWriteModal } = useSelector(state => state.contentsSlice);
 
     return (
         <>
             <StLayoutDiv>
                 {/* 로그인 모달 */}
-                {modal && <LoginModal />}
+                {loginModal && <LoginModal />}
+                {/* 글작성 모달 */}
+                {cntWriteModal && <CntWriteModal />}
                 <Header />
                 {props.children}
                 <Footer />
