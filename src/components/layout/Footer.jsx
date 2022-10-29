@@ -3,23 +3,23 @@ import styled from 'styled-components'
 import { IoLogoGithub } from "react-icons/io";
 
 const Footer = () => {
-  return (
-    <StFootContainer>
-      <StMake>
-        Copyright 2022. hang-hae99 1th W6: team 5 all rights reserved.
-      </StMake>
-      <StGitWrap>
-        <div className='item'>
-          <StGitBtn onClick={() => window.open('https://github.com/ChoiTobin/minimumProject', '_blank')} ><IoLogoGithub className="head-ico" /></StGitBtn>
-          Flont-End
-        </div>
-        <div className='item'>
-          <StGitBtn onClick={() => window.open('https://github.com/euni1004/team01_week06_project', '_blank')} ><IoLogoGithub className="head-ico" /></StGitBtn>
-          Back-End
-        </div>
-      </StGitWrap>
-    </StFootContainer>
-  )
+  // return (
+  //   <StFootContainer>
+  //     <StMake>
+  //       Copyright 2022. hang-hae99 1th W6: team 5 all rights reserved.
+  //     </StMake>
+  //     <StGitWrap>
+  //       <div className='item'>
+  //         <StGitBtn onClick={() => window.open('https://github.com/ChoiTobin/minimumProject', '_blank')} ><IoLogoGithub className="head-ico" /></StGitBtn>
+  //         Flont-End
+  //       </div>
+  //       <div className='item'>
+  //         <StGitBtn onClick={() => window.open('https://github.com/euni1004/team01_week06_project', '_blank')} ><IoLogoGithub className="head-ico" /></StGitBtn>
+  //         Back-End
+  //       </div>
+  //     </StGitWrap>
+  //   </StFootContainer>
+  // )
 }
 
 export default Footer

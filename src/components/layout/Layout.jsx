@@ -27,6 +27,9 @@ const Layout = (props) => {
 export default Layout;
 
 const StLayoutDiv = styled.div`    
+  /* max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto; */
     display:flex;
     align-items : center;
     flex-direction : column;

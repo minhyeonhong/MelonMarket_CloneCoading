@@ -3,21 +3,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import loginApis from "../../apis/apiInstance"
 import axios from "axios";
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
+import { useNavigate } from 'react-router-dom';
 
+
+//로그인 Thunk
 export const __login = createAsyncThunk(
     "members/__login",
     async (payload, thunkAPI) => {
         try {
+            const navigate = useNavigate();
             console.log("getCookie", getCookie("token"));
-            //const response = loginApis.loginAX(payload);
-
-            //loginApis.loginAX(JSON.stringify(payload))
             loginApis.loginAX(payload)
                 .then((response) => {
-                    console.log("loginAX response", response);
+                    console.log("로그인 response", response);
+                    const Access_Token = response.headers.access_token;
+                    if (response.data.statusCode === 200 || '200') {
+                        setCookie(
+                            "Access_Token",
+                            Access_Token
+                        );
+                        setCookie("nickname", response.data.accountName);
+                        alert(response.data.message);
+                        navigate("/");
+                    }
                 })
                 .catch((error) => {
-                    console.log("loginAX error", error);
+                    if (error.response.status === 400 || '400') {
+                        alert(error.response.data.message);
+                    }
                 })
 
             // return thunkAPI.fulfillWithValue(response.data);
@@ -26,23 +39,47 @@ export const __login = createAsyncThunk(
         }
     }
 )
-
+// 회원가입 Thunk
 export const __join = createAsyncThunk(
     "members/__join",
     async (payload, thunkAPI) => {
         try {
-            console.log("joinAX payload", payload);
-
+            console.log("회원가입 페이로드", payload);
             loginApis.joinAX(payload)
                 .then((response) => {
-                    console.log("joinAX response", response);
+                    console.log("회원가입 response", response);
+                    if (response.msg === 200 || 200) {
+                        alert('회원가입에 성공하였습니다!')
+                    }
                 })
                 .catch((error) => {
-                    console.log("joinAX error", error);
+                    if (error.response.status === 400 || '400') {
+                        alert(error.response.data.message);
+                    }
                 })
-
-
-
+            //console.log("response", response)
+            // return thunkAPI.fulfillWithValue(response.data);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
+//이메일, 닉네임 중복확인 Thunk
+export const __loginCheck = createAsyncThunk(
+    "members/__loginCheck",
+    async (payload, thunkAPI) => {
+        try {
+            console.log("중복체크 페이로드", payload);
+            loginApis.loginCheckAX(payload)
+                .then((response) => {
+                    console.log("loginCheckAX response", response);
+                })
+                .catch((error) => {
+                    if (error.response.status === 400 || '400') {
+                        console.log("중복체크 오류 메시지", error);
+                        alert(error.response.data.message);
+                    }
+                })
             //console.log("response", response)
 
             // return thunkAPI.fulfillWithValue(response.data);
@@ -51,6 +88,7 @@ export const __join = createAsyncThunk(
         }
     }
 )
+
 
 export const membersSlice = createSlice({
     name: "members",

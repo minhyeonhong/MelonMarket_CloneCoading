@@ -27,10 +27,12 @@ export const loginApis = {
     loginAX: (loginInfo) => nhinstance.post(`/auth/login`, loginInfo),
     //회원가입
     joinAX: (joinInfo) => nhinstance.post(`/auth/signup`, joinInfo),
-    //회원가입 아이디 중복 체크
-    loginCheckAX: (email) => nhinstance.post(`/auth/idCheck`, email),
-    //회원가입 낙네임 중복 체크
-    loginCheckAX: (name) => nhinstance.post(`/auth/nameCheck`, name),
+
+    //회원가입 이메일 중복 체크
+    // loginEmailCheckAX: (email) => nhinstance.post(`/auth/idCheck`, email),
+
+    //회원가입 이메일, 닉네임 중복 체크
+    loginCheckAX: (userinfo) => nhinstance.post(`${userinfo.url}`, userinfo.data),
 
     //게시글 삭제
     getDeletePostAX: (id) => nhinstance.delete(`/detail/delete?boardId=${id}`),
@@ -44,10 +46,9 @@ export const contentsApis = {
     loginAX: (loginInfo) => nhinstance.post(`/auth/login`, loginInfo),
     //회원가입
     joinAX: (joinInfo) => nhinstance.post(`/auth/signup`, joinInfo),
-    //회원가입 아이디 중복 체크
-    loginCheckAX: (email) => nhinstance.post(`/auth/idCheck`, email),
-    //회원가입 낙네임 중복 체크
-    loginCheckAX: (name) => nhinstance.post(`/auth/nameCheck`, name),
+    //회원가입 아이디, 이메일 중복 체크
+    loginCheckAX: (duplicateInfo) => nhinstance.post(`${duplicateInfo}`, duplicateInfo),
+
 
     //게시글 삭제
     getDeletePostAX: (id) => nhinstance.delete(`/detail/delete?boardId=${id}`),
