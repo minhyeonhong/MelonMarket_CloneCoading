@@ -13,8 +13,6 @@ const Layout = (props) => {
     //작성글 모달 상태값으로 띄우기 위해
     const { cntWriteModal } = useSelector(state => state.contentsSlice);
 
-    console.log(loginModal);
-
 
     return (
         <>
@@ -29,9 +27,9 @@ const Layout = (props) => {
                             멜론마켓
                         </StBodyTitle>
                         <StBodyText>
-                            "중고 거래부터 동네 정보까지 이웃과 함께해요."
+                            중고 거래부터 동네 정보까지 이웃과 함께해요.
                             <br></br>
-                            "가깝고 따듯한 당신의 근처를 만들어요."
+                            가깝고 따듯한 당신의 근처를 만들어요.
                         </StBodyText>
                     </div>
 
@@ -47,7 +45,7 @@ const Layout = (props) => {
                             중고 직거래 마켓
                         </StBodyTitle>
                         <StBodyText>
-                            "동네 주민들과 가깝고 따뜻한 거래를 지금 경험해 보세요"
+                            동네 주민들과 가깝고 따뜻한 거래를 지금 경험해 보세요
                         </StBodyText>
                     </div>
 

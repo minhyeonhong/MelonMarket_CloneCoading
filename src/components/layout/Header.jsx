@@ -30,7 +30,7 @@ function Header() {
     }
     //openweathermap으로부터 API 정보획득
     const getWeatherByCurrentLocation = async (lat, lon) => {
-        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4fec86a8af9cd23b5321c3f6ec2da608&units=metric
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_WEATHER_KEY}&units=metric
         `
         let response = await fetch(url);
         let data = await response.json();
