@@ -147,6 +147,7 @@ const StNavWrap = styled.div`
 
 const StNavItem = styled.button`
     font-family: 'Gowun Batang', serif;
+    font-weight: bold;
     background-color : white;
     width : 100px;
     height: 80%;
