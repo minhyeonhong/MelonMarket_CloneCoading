@@ -266,7 +266,7 @@ const StTitle = styled.p`
   background: linear-gradient(to right, #CFFF8D, orange);
   padding: 0.43em 1em;
   font-size: 19px;
-  border-radius: 3px;
+
   color: #ffff;
   width: 200px;
   height: 50px;

@@ -67,7 +67,7 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "orange" }}>현재날씨:{weather?.main.temp}°C</h5>
+            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
             <StNavWrap>
                 {getCookie("Access_Token") ? (
                     <h3>
@@ -88,10 +88,10 @@ function Header() {
                         </h3>
                     </h3>
                 ) : (
-                    <StNavItem onClick={() => { loginModalToggle() }}>로그인</StNavItem>
+                    <StNavItem2 onClick={() => { loginModalToggle() }}>로그인</StNavItem2>
                 )}
                 {/* {<StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem> } */}
-                <StNavItem style={{ color: "red" }} onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
+                <StNavItem onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
             </StNavWrap>
         </HeadContainer>
     );
@@ -110,7 +110,7 @@ font-family: 'Nanum Pen Script', cursive;
   width: 100%;
   height: 60px;
   background-color: white;
-  color: orange;
+  color: 149730;
   position:sticky;
   top : 0;
   box-shadow: 0px 2px 10px #9dabca;
@@ -124,11 +124,11 @@ const StHomeBtn = styled.a`
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: #51e241;
+  color: #149730;
 .head-ico {
 font-size: 1.6rem;
 margin: 5px;
-color: #51e241;
+color: #149730;
 height: 40px;
 }
 &:hover {
@@ -146,17 +146,32 @@ const StNavWrap = styled.div`
 `
 
 const StNavItem = styled.button`
-    font-family: 'Gowun Batang', serif;
+    /* font-family: 'Gowun Batang', serif; */
     font-weight: bold;
     background-color : white;
     width : 100px;
     height: 80%;
     border-radius : 100px;
     border : none;//#fff solid 1px;
-    background-color: #59ed49;
+    background-color: #149730;
     color: #fff;
     &:hover{
         background-color: #a9e5a2;
         color: white;
     }
 `
+const StNavItem2 = styled.button`
+    /* font-family: 'Gowun Batang', serif; */
+    font-weight: bold;
+    background-color : white;
+    width : 100px;
+    height: 80%;
+    border-radius : 100px;
+    border : 1px solid #149730;//#fff solid 1px;
+    background-color: white;
+    color: #149730;
+    &:hover{
+        background-color: #a9e5a2;
+        color: white;
+    }
+    `;

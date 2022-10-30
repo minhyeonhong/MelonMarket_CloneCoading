@@ -13,14 +13,14 @@ const Layout = (props) => {
     //작성글 모달 상태값으로 띄우기 위해
     const { cntWriteModal } = useSelector(state => state.contentsSlice);
 
+    console.log(loginModal);
+
+
     return (
         <>
             <StLayoutDiv>
-                {/* 로그인 모달 */}
-                {loginModal && <LoginModal />}
-                {/* 글작성 모달 */}
-                {cntWriteModal && <CntWriteModal />}
                 <Header />
+
                 <StBannerContainer>
                     <div>
                         <StBodyTitle>
@@ -52,8 +52,14 @@ const Layout = (props) => {
                     </div>
 
                 </StBannerContainer>
+
+                {/* 로그인 모달 */}
+                {loginModal && <LoginModal />}
+                {/* 글작성 모달 */}
+                {cntWriteModal && <CntWriteModal />}
                 {props.children}
                 <Footer />
+
             </StLayoutDiv>
 
         </>
