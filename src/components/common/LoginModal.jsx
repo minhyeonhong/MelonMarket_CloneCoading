@@ -6,6 +6,7 @@ import Input from "../elements/Input";
 import Button from "../elements/Button";
 import useInput from "../../hooks/useInput";
 import { __loginCheck } from '../../redux/modules/membersSlice';
+import melon80 from "../../assets/멜론80.png"
 
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -130,6 +131,7 @@ const LoginModal = () => {
         <button onClick={closeModal} className='close'>
           닫기
         </button>
+        <img src={melon80}></img>
         <StTitle>Melon Market</StTitle>
 
         <StLoginWrap toggle={toggle}>
@@ -234,7 +236,7 @@ const LoginModal = () => {
           color='reverse'
           onClick={toggleBtnHandle}
         >
-          {toggle ? "가입하기" : "로그인하기"}
+          {toggle ? "가입 하러가기" : "로그인 하러가기"}
         </Button>
       </StModalWrap>
     </StModalBackground>
@@ -261,11 +263,11 @@ const StModalBackground = styled.div`
 `;
 
 const StTitle = styled.p`
-  background: linear-gradient(to right, #CFFF8D, #A8E890);
+  background: linear-gradient(to right, #CFFF8D, orange);
   padding: 0.43em 1em;
   font-size: 19px;
   border-radius: 3px;
-  color: #ffffff;
+  color: #ffff;
   width: 200px;
   height: 50px;
   font-size: 32px;
