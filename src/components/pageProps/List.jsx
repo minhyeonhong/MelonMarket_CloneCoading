@@ -33,13 +33,11 @@ const List = () => {
                                     return (
                                         <StCardTop key={item.postId}>
                                             <StEachCard>
-                                                {/* {item.images.map((item) => {
-                                                    return (
-                                                        <StCardPhoto key={item.imageID}
-                                                            src={item.image} />
-                                                    )
-                                                })} */}
-                                                <StCardPhoto src={item.images[0].image} />
+                                                <StCardPhoto src=
+                                                    {item.images.length > 0 ?
+                                                        item.images[0].image : ""} />
+
+                                                {/* <StCardPhoto src={item.images[0].image} /> */}
                                             </StEachCard>
                                             <StCardDesc>
                                                 <StCardTitle>{item.title}</StCardTitle>
@@ -47,14 +45,12 @@ const List = () => {
                                                 <StCardRegion>{item.place}</StCardRegion>
                                             </StCardDesc>
                                         </StCardTop>
-
                                     )
                                 })
                             }
                         </>
                     )
                 }
-
             </StCardsWrap>
         </StHomeHotContent>
     );

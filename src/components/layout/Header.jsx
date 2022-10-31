@@ -94,7 +94,7 @@ function Header() {
             <StNavWrap>
                 {getCookie("Access_Token") ? (
 
-                    <h3>
+                    <div>
                         <h3 className="nav-btn"
                             // onClick={() => {
                             //     delCookie("Access_Token");
@@ -104,13 +104,13 @@ function Header() {
                             onClick={((event) => {
                                 askLogOut(event)
                             })}
-                            style={{ textDecoration: "none" }}>
-                            <span style={{ color: "#FA4C1A", marginRight: "50px" }}>
+                            style={{ textDecoration: "none", fontSize: "30px", marginRight: "10px" }}>
+                            <span style={{ color: "#FA4C1A", marginRight: "50px", fontSize: "30px" }}>
                                 {nickname}님, 안녕하세요!
                             </span>
                             로그아웃
                         </h3>
-                    </h3>
+                    </div>
 
 
 

@@ -4,6 +4,7 @@ import { contentsApis } from "../../apis/apiInstance"
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 import { useNavigate } from 'react-router-dom';
 
+
 export const __insertContent = createAsyncThunk(
     "contents/__insertContent",
     async (payload, thunkAPI) => {
