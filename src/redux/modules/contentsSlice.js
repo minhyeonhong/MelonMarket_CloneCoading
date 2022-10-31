@@ -7,20 +7,9 @@ export const __insertContent = createAsyncThunk(
     "contents/__insertContent",
     async (payload, thunkAPI) => {
         try {
-            console.log("payload", payload);
-            for (let key of payload.keys()) {
-                console.log("payload", key, ":", payload.get(key));
-            }
-            contentsApis.insertContentAX(payload)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+            const res = contentsApis.insertContentAX(payload)
 
-
-            // return thunkAPI.fulfillWithValue(response.data);
+            return thunkAPI.fulfillWithValue(res);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -40,7 +29,15 @@ export const contentsSlice = createSlice({
         },
     },
     extraReducers: {
-
+        //__insertContent
+        [__insertContent.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            console.log("action.payload : ", action.payload);
+        },
+        [__insertContent.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
 
     }
 });

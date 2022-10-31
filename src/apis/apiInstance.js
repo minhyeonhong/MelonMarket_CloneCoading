@@ -14,10 +14,8 @@ const nhinstance = axios.create({
 const hInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        'content-type': 'application/json;charset=UTF-8',
-        accept: 'application/json,',
-        "Access_Token": getCookie("token") === undefined ? "" : getCookie("token"),
-        "Access-Control-Allow-Origin": "*",
+        //"Access_Token": getCookie("Access_Token") === undefined ? "" : getCookie("Access_Token"),
+        "Access_Token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZWg1MTY0MiIsImV4cCI6MTY2NzIxNDk3MCwiaWF0IjoxNjY3MjEzMTcwfQ.2kqyVAQqnS7HuFPktVxR76mZE12WIezsq_0qWT-2boA"
     },
     withCredentials: true,
 });

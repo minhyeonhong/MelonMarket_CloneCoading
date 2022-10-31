@@ -38,6 +38,7 @@ const CntWriteModal = () => {
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef();
 
+
   //이미지 가져오기 핸들러
   const onChangeImage = (e) => {
     //const files = imgRef.current.files;
@@ -57,7 +58,6 @@ const CntWriteModal = () => {
         return;
       }
 
-
       //압축 옵션
       const options = {
         maxSizeMB: 0.02,
@@ -69,10 +69,8 @@ const CntWriteModal = () => {
       imageCompression(file, options)
         .then((res) => {
           //압축 이미지 담기
-          setImgFiles(imgs => [...imgs, res]);
-
           //blob to file blob을 file로 형변환
-          //etImgFiles(imgs => [...imgs, new File([res], res.name, { type: "image/" + res.name.split(".")[1] })]);
+          setImgFiles(imgs => [...imgs, new File([res], res.name, { type: "image/" + res.name.split(".")[1] })]);
 
           //압축 이미지 url 담기
           const reader = new FileReader(); // FileReader API로 이미지 인식
@@ -93,10 +91,19 @@ const CntWriteModal = () => {
   const writeSubmit = () => {
     //request로 날릴 폼데이터
     const formData = new FormData();
-    //폼 데이터에 이미지 파이들 담기
-    formData.append("images", imgFiles);
+
+    //폼 데이터에 이미지 파일들 담기
+    if (imgFiles.length > 0) {
+      imgFiles.forEach((file) => {
+        formData.append("image", file);
+      })
+    } else {
+      formData.append("image", null);
+    }
+
     //폼 데이터에 글작성 데이터 넣기
     formData.append("post", JSON.stringify(write));
+
     //Api 날리기
     dispatch(__insertContent(formData));
   }
