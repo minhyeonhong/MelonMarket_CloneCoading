@@ -43,8 +43,6 @@ export const loginApis = {
 
 export const commentApis = {
 
-
-
     //댓글 작성
     commentAddAX: (commentInfo) => hInstance.post(`${commentInfo.url}/comment`, commentInfo.data),
 
@@ -56,23 +54,7 @@ export const commentApis = {
 
 export const contentsApis = {
     //컨텐츠
-
+    insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 };
 
-//이런식으로 쓴다
-// const getMyList = (offset) => {
-//     apis
-//         .getMyListAX(offset)
-//         .then((response) => {
-//             const data = response.data.data;
-//             setMyList((prev) => [...prev, data.dataList]);
-//             setMaxPage((prev) => ({ ...prev, myPost: data.maxPage }));
-//             setDataSize((prev) => ({ ...prev, myPost: data.dataSize }));
-//             setTimeout(500);
-//         })
-//         .catch((err) => {
-//             alert(err);
-//         });
-// };
 
-export default loginApis;

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
-import loginApis from "../../apis/apiInstance"
+import { loginApis } from "../../apis/apiInstance"
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +31,8 @@ export const __login = createAsyncThunk(
                         alert(error.response.data.message);
                     }
                 })
+
+            loginApis.loginAX(payload)
 
             // return thunkAPI.fulfillWithValue(response.data);
         } catch (error) {
