@@ -95,10 +95,10 @@ const CntWriteModal = () => {
     //폼 데이터에 이미지 파일들 담기
     if (imgFiles.length > 0) {
       imgFiles.forEach((file) => {
-        formData.append("image", file);
+        formData.append("images", file);
       })
     } else {
-      formData.append("image", null);
+      formData.append("images", null);
     }
 
     //폼 데이터에 글작성 데이터 넣기

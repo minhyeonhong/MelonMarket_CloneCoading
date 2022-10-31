@@ -63,7 +63,8 @@ function Header() {
     }
 
 
-    const askLogOut = () => {
+    const askLogOut = (event) => {
+        event.stopPropagation()
         if (window.confirm("로그아웃 하시겠습니까?")) {
             delCookie("Access_Token")
             delCookie("nickname")
@@ -85,7 +86,7 @@ function Header() {
                 {/* <IoMdHome className="head-ico" /> */}
                 {/* <IoMdHome /> */}
                 <img src={melonlogo}></img>
-                <div style={{ margin: "5px", fontSize: "45px", width: "200px" }}>멜론 마켓</div>
+                <div style={{ margin: "5px", fontSize: "45px", width: "fit-content", whiteSpace: "nowrap" }}>멜론 마켓</div>
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
@@ -100,7 +101,9 @@ function Header() {
                             //     delCookie("nickname");
                             //     navigate("/");
                             // }}
-                            onClick={askLogOut}
+                            onClick={((event) => {
+                                askLogOut(event)
+                            })}
                             style={{ textDecoration: "none" }}>
                             <span style={{ color: "#FA4C1A", marginRight: "50px" }}>
                                 {nickname}님, 안녕하세요!
@@ -140,7 +143,7 @@ font-family: 'Nanum Pen Script', cursive;
   flex-direction : row;
   justify-content: space-around;
   width: 100%;
-  height: 60px;
+  height: 70px;
   background-color: white;
   color: #149730;
   position:sticky;

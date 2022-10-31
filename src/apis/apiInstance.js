@@ -14,8 +14,8 @@ const nhinstance = axios.create({
 const hInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        //"Access_Token": getCookie("Access_Token") === undefined ? "" : getCookie("Access_Token"),
-        "Access_Token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZWg1MTY0MiIsImV4cCI6MTY2NzIxNDk3MCwiaWF0IjoxNjY3MjEzMTcwfQ.2kqyVAQqnS7HuFPktVxR76mZE12WIezsq_0qWT-2boA"
+        "Access_Token": getCookie("Access_Token") === undefined ? "" : getCookie("Access_Token"),
+        // "Access_Token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZWg1MTY0MiIsImV4cCI6MTY2NzIxNDk3MCwiaWF0IjoxNjY3MjEzMTcwfQ.2kqyVAQqnS7HuFPktVxR76mZE12WIezsq_0qWT-2boA"
     },
     withCredentials: true,
 });
@@ -47,12 +47,24 @@ export const commentApis = {
     //댓글 삭제
     commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`),
 
+
+
 };
 
 
 export const contentsApis = {
-    //컨텐츠
+    //컨텐츠 작성
     insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
+
+    //컨텐츠 불러오기
+    getContentAX: (contentInfo) => hInstance.get(`/api/posts`),
+
+    //컨텐츠 삭제
+    deleteContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
+
+    //컨텐츠 수정
+    updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`, contentInfo),
+
 };
 
 
