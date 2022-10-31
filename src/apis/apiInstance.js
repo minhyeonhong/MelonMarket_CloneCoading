@@ -41,6 +41,19 @@ export const loginApis = {
     putUserInfoAX: (userinfo) => nhinstance.put("/my/update", userinfo),
 };
 
+export const commentApis = {
+
+
+
+    //댓글 작성
+    commentAddAX: (commentInfo) => hInstance.post(`${commentInfo.url}/comment`, commentInfo.data),
+
+    //댓글 삭제
+    commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`),
+
+};
+
+
 export const contentsApis = {
     //컨텐츠
 

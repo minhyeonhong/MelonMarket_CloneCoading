@@ -6,7 +6,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@font-face {
+  font-family: 'Dongle', sans-serif;
+  font-family: 'Nanum Pen Script', 'cursive';
+  font-weight: 100 900;
+  src: url('./assets/font/Dongle-Regular.ttf') 
+  format('woff2-variations','ttf-variations');
+}
 
+@font-face {
+  font-family: 'Gowun Batang', serif;
+  font-weight: 100 900;
+  src: url('./assets/font/GowunBatang-Regular.ttf'),('./assets/font/GowunBatang-Bold.ttf') 
+  format('woff2-variations','ttf-variations');
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
