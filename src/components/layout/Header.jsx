@@ -12,6 +12,7 @@ import '../../assets/font/Dongle-Regular.ttf'
 import '../../assets/font/GowunBatang-Regular.ttf'
 import '../../assets/font/GowunBatang-Bold.ttf'
 
+
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -41,8 +42,14 @@ function Header() {
         getCurrentLocation()
     }, [])
 
+    const moveToMyPage = (event) => {
+        event.stopPropagation();
+        navigate("/mypage")
+    }
 
-    let nickname = getCookie("nickname");
+
+    const nickname = getCookie("nickname");
+
     //모달 상태값으로 띄우기 위해
     const { loginModal } = useSelector(state => state.membersSlice);
     const { cntWriteModal } = useSelector(state => state.contentsSlice);
@@ -54,6 +61,21 @@ function Header() {
     const cntWriteModalToggle = () => {
         dispatch(cntWriteModalTogle(!cntWriteModal));
     }
+
+
+    const askLogOut = () => {
+        if (window.confirm("로그아웃 하시겠습니까?")) {
+            delCookie("Access_Token")
+            delCookie("nickname")
+            navigate("/");
+            alert("로그아웃 되었습니다")
+        } else {
+            alert("취소합니다")
+        }
+
+
+    }
+
 
     return (
 
@@ -67,31 +89,41 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
+            {/* <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5> */}
             <StNavWrap>
                 {getCookie("Access_Token") ? (
+
                     <h3>
-                        <h3
-                            className="nav-btn"
-                            onClick={() => {
-                                delCookie("Access_Token");
-                                delCookie("nickname");
-                                navigate("/login");
-                            }}
-                            style={{ textDecoration: "none" }}
-                        >
-                            <span style={{ color: "#FA4C1A" }}>
-                                {/* `${getCookie.nickname}`님, 안녕하세요!` */}
+                        <h3 className="nav-btn"
+                            // onClick={() => {
+                            //     delCookie("Access_Token");
+                            //     delCookie("nickname");
+                            //     navigate("/");
+                            // }}
+                            onClick={askLogOut}
+                            style={{ textDecoration: "none" }}>
+                            <span style={{ color: "#FA4C1A", marginRight: "50px" }}>
                                 {nickname}님, 안녕하세요!
                             </span>
                             로그아웃
                         </h3>
                     </h3>
+
+
+
                 ) : (
                     <StNavItem2 onClick={() => { loginModalToggle() }}>로그인</StNavItem2>
                 )}
                 {/* {<StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem> } */}
                 <StNavItem onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
+                <div>
+                    <span style={{ marginLeft: "10px", color: "white", fontSize: "17px", border: "1px solid green", borderRadius: "50px", backgroundColor: "orange", padding: "13px", fontFamily: "Arial-bold" }}
+                        onClick={((event) => {
+                            moveToMyPage(event)
+                        })
+                        }
+                    >마이페이지</span>
+                </div>
             </StNavWrap>
         </HeadContainer>
     );
@@ -110,7 +142,7 @@ font-family: 'Nanum Pen Script', cursive;
   width: 100%;
   height: 60px;
   background-color: white;
-  color: 149730;
+  color: #149730;
   position:sticky;
   top : 0;
   box-shadow: 0px 2px 10px #9dabca;

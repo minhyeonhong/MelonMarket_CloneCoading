@@ -63,7 +63,7 @@ const LoginModal = () => {
   const NickNameCheck = () => {
     const obj = {
       data: {
-        email: join.accountName
+        accountName: join.accountName
       },
       url: `/auth/nameCheck`,
     }
@@ -75,7 +75,7 @@ const LoginModal = () => {
   // 회원가입 버튼 클릭 전, 최종 유효성 검사
   const useremailCheck = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   // const useremailCheck = /^[a-z]+[a-z0-9]{5,13}$/g;
-  const passwordCheck = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/
+  const passwordCheck = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
 
   //회원가입 버튼 딸깍
@@ -112,6 +112,7 @@ const LoginModal = () => {
 
   //로그인 버튼 딸깍
   const signHandle = () => {
+
     const obj = {
       email: login.email,
       accountPw: login.accountPw,

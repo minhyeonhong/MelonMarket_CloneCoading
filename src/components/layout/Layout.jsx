@@ -36,7 +36,7 @@ const Layout = (props) => {
                     <StBodyPic />
                 </StBannerContainer>
 
-                <StBannerContainer>
+                <StBannerContainer style={{ backgroundColor: 'White' }}>
                     <StBodyPic2 />
                     <div>
                         <StBodyTitle>
