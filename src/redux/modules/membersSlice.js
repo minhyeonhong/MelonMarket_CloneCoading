@@ -1,40 +1,44 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
-import { loginApis } from "../../apis/apiInstance"
-import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
-import { useNavigate } from 'react-router-dom';
 
+import loginApis from "../../apis/apiInstance"
+import { setCookie, getCookie } from "../../cookie/cookie"
+
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 //로그인 Thunk
 export const __login = createAsyncThunk(
     "members/__login",
     async (payload, thunkAPI) => {
+
+
         try {
-            const navigate = useNavigate();
-            console.log("getCookie", getCookie("token"));
-            loginApis.loginAX(payload)
-                .then((response) => {
-                    console.log("로그인 response", response);
-                    const Access_Token = response.headers.access_token;
-                    if (response.data.statusCode === 200 || '200') {
-                        setCookie(
-                            "Access_Token",
-                            Access_Token
-                        );
-                        setCookie("nickname", response.data.accountName);
-                        alert(response.data.message);
-                        navigate("/");
-                    }
-                })
-                .catch((error) => {
-                    if (error.response.status === 400 || '400') {
-                        alert(error.response.data.message);
-                    }
-                })
+            console.log("로그인 페이로드 확인", payload)
+            const data = await loginApis.loginAX(payload)
+            //  기존 로직
+            // .then((response) => {
+            //     console.log("로그인 받은 response", response);
+            //     const Access_Token = response.headers.access_token;
+            //     if (response.data.statusCode === 200 || '200') {
+            //         setCookie(
+            //             "Access_Token",
+            //             Access_Token
+            //         );
+            //         setCookie("nickname", payload.email);
+            //         alert(response.data.message);
 
-            loginApis.loginAX(payload)
+            //         useNavigate("/")
+            //         // // navigate("/");
+            //     }
+            // })
 
-            // return thunkAPI.fulfillWithValue(response.data);
+            // .catch((error) => {
+            //     if (error.status === 400 || '400') {
+            //         alert(error.response.data.message);
+            //     }
+            // })
+            return thunkAPI.fulfillWithValue(data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -51,6 +55,7 @@ export const __join = createAsyncThunk(
                     console.log("회원가입 response", response);
                     if (response.msg === 200 || 200) {
                         alert('회원가입에 성공하였습니다!')
+
                     }
                 })
                 .catch((error) => {
@@ -73,7 +78,9 @@ export const __loginCheck = createAsyncThunk(
             console.log("중복체크 페이로드", payload);
             loginApis.loginCheckAX(payload)
                 .then((response) => {
-                    console.log("loginCheckAX response", response);
+                    if (response.statusCode === 200 || '200') {
+                        alert("사용가능합니다!");
+                    }
                 })
                 .catch((error) => {
                     if (error.response.status === 400 || '400') {
@@ -106,6 +113,13 @@ export const membersSlice = createSlice({
     extraReducers: {
         //__login
         [__login.fulfilled]: (state, action) => {
+
+            if (action.payload.data.message === "Success Login") {
+                setCookie("Access_Token", action.payload.headers.access_token)
+                setCookie("nickname", action.payload.data.accountName)
+                alert("로그인에 성공하였습니다!")
+                state.loginModal = !state.loginModal;
+            }
             state.isLoading = false;
         },
         [__login.rejected]: (state, action) => {
