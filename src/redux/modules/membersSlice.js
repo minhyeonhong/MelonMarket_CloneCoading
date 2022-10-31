@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
-import loginApis from "../../apis/apiInstance"
+
+import { loginApis } from "../../apis/apiInstance"
 import { setCookie, getCookie } from "../../cookie/cookie"
+
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -9,33 +11,16 @@ import { useDispatch } from 'react-redux';
 export const __login = createAsyncThunk(
     "members/__login",
     async (payload, thunkAPI) => {
-
         try {
-            console.log("로그인 페이로드 확인", payload)
-            const data = await loginApis.loginAX(payload)
-            //  기존 로직
-            // .then((response) => {
-            //     console.log("로그인 받은 response", response);
-            //     const Access_Token = response.headers.access_token;
-            //     if (response.data.statusCode === 200 || '200') {
-            //         setCookie(
-            //             "Access_Token",
-            //             Access_Token
-            //         );
-            //         setCookie("nickname", payload.email);
-            //         alert(response.data.message);
 
-            //         useNavigate("/")
-            //         // // navigate("/");
-            //     }
-            // })
+            const res = await loginApis.loginAX(payload)
 
-            // .catch((error) => {
-            //     if (error.status === 400 || '400') {
-            //         alert(error.response.data.message);
-            //     }
-            // })
-            return thunkAPI.fulfillWithValue(data);
+            const obj = {
+                access_token: res.headers.access_token,
+                data: res.data
+            }
+            console.log("objobjobjobj", obj)
+            return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -110,10 +95,10 @@ export const membersSlice = createSlice({
     extraReducers: {
         //__login
         [__login.fulfilled]: (state, action) => {
-
+            console.log(action.payload)
             if (action.payload.data.message === "Success Login") {
-                setCookie("Access_Token", action.payload.headers.access_token)
-                setCookie("nickname", action.payload.data.accountName)
+                setCookie("Access_Token", action.payload.access_token)
+                //setCookie("nickname", action.payload.data.accountName)
                 alert("로그인에 성공하였습니다!")
                 state.loginModal = !state.loginModal;
             }

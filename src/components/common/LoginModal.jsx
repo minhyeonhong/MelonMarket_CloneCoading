@@ -55,6 +55,7 @@ const LoginModal = () => {
       },
       url: `/auth/idCheck`,
     }
+    console.log("이메일 중복 체크obj", obj);
     // dispatch(__loginCheck({ accountName: join.email }, { url: `/auth/idCheck` }))
     dispatch(__loginCheck(obj))
   };
@@ -67,6 +68,7 @@ const LoginModal = () => {
       },
       url: `/auth/nameCheck`,
     }
+    console.log("닉네임 중복 체크obj", obj);
     // dispatch(__loginCheck({ accountName: join.accountName }, { url: `/auth/nameCheck` }))
     dispatch(__loginCheck(obj))
   };

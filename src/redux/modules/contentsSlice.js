@@ -1,21 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
-import loginApis from "../../apis/apiInstance"
+import { contentsApis } from "../../apis/apiInstance"
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 
-// export const __getList = createAsyncThunk(
-//     "contents/__getList",
-//     async (payload, thunkAPI) => {
-//         try {
-//             console.log("getCookie", getCookie("token"));
+export const __insertContent = createAsyncThunk(
+    "contents/__insertContent",
+    async (payload, thunkAPI) => {
+        try {
+            const res = contentsApis.insertContentAX(payload)
 
-
-//             // return thunkAPI.fulfillWithValue(response.data);
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue(error);
-//         }
-//     }
-// )
+            return thunkAPI.fulfillWithValue(res);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
 
 export const contentsSlice = createSlice({
     name: "contents",
@@ -30,7 +29,15 @@ export const contentsSlice = createSlice({
         },
     },
     extraReducers: {
-
+        //__insertContent
+        [__insertContent.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            console.log("action.payload : ", action.payload);
+        },
+        [__insertContent.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
 
     }
 });

@@ -14,10 +14,8 @@ const nhinstance = axios.create({
 const hInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        'content-type': 'application/json;charset=UTF-8',
-        accept: 'application/json,',
-        "Access_Token": getCookie("token") === undefined ? "" : getCookie("token"),
-        "Access-Control-Allow-Origin": "*",
+        //"Access_Token": getCookie("Access_Token") === undefined ? "" : getCookie("Access_Token"),
+        "Access_Token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZWg1MTY0MiIsImV4cCI6MTY2NzIxNDk3MCwiaWF0IjoxNjY3MjEzMTcwfQ.2kqyVAQqnS7HuFPktVxR76mZE12WIezsq_0qWT-2boA"
     },
     withCredentials: true,
 });
@@ -43,8 +41,6 @@ export const loginApis = {
 
 export const commentApis = {
 
-
-
     //댓글 작성
     commentAddAX: (commentInfo) => hInstance.post(`${commentInfo.url}/comment`, commentInfo.data),
 
@@ -56,23 +52,7 @@ export const commentApis = {
 
 export const contentsApis = {
     //컨텐츠
-
+    insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 };
 
-//이런식으로 쓴다
-// const getMyList = (offset) => {
-//     apis
-//         .getMyListAX(offset)
-//         .then((response) => {
-//             const data = response.data.data;
-//             setMyList((prev) => [...prev, data.dataList]);
-//             setMaxPage((prev) => ({ ...prev, myPost: data.maxPage }));
-//             setDataSize((prev) => ({ ...prev, myPost: data.dataSize }));
-//             setTimeout(500);
-//         })
-//         .catch((err) => {
-//             alert(err);
-//         });
-// };
 
-export default loginApis;
