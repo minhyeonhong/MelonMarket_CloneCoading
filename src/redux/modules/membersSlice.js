@@ -98,7 +98,7 @@ export const membersSlice = createSlice({
             console.log(action.payload)
             if (action.payload.data.message === "Success Login") {
                 setCookie("Access_Token", action.payload.access_token)
-                //setCookie("nickname", action.payload.data.accountName)
+                setCookie("nickname", action.payload.data.accountName)
                 alert("로그인에 성공하였습니다!")
                 state.loginModal = !state.loginModal;
             }
