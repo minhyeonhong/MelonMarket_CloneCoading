@@ -11,7 +11,6 @@ import styled from "styled-components";
 const Comment = ({ reply }) => {
 
     const contentId = useParams()
-    console.log(contentId);
 
     const dispatch = useDispatch("");
     const [comment, setComment] = useState({
@@ -46,7 +45,6 @@ const Comment = ({ reply }) => {
 
     // 댓글 삭제 버튼
     const onDeleteButton = (id) => {
-        console.log("온클릭 삭제 id", id);
         dispatch(__deleteComment(id))
         // alert("삭제하시겠습니까?")
     };
@@ -142,7 +140,7 @@ const StCommentList = styled.div`
 const Ststrong = styled.strong`
   width:87px;
   padding:8px;
-  color:#fff;
+  color:black;
   display:block;
 `;
 
