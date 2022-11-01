@@ -41,7 +41,7 @@ const LoginModal = () => {
   //비밀번호 형식검사
   const PasswordHandler = (event) => {
     const passwordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     return passwordRegex.test(event);
   };
@@ -55,7 +55,7 @@ const LoginModal = () => {
       },
       url: `/auth/idCheck`,
     }
-    console.log("이메일 중복 체크obj", obj);
+
     // dispatch(__loginCheck({ accountName: join.email }, { url: `/auth/idCheck` }))
     dispatch(__loginCheck(obj))
   };
@@ -68,7 +68,6 @@ const LoginModal = () => {
       },
       url: `/auth/nameCheck`,
     }
-    console.log("닉네임 중복 체크obj", obj);
     // dispatch(__loginCheck({ accountName: join.accountName }, { url: `/auth/nameCheck` }))
     dispatch(__loginCheck(obj))
   };
@@ -200,7 +199,7 @@ const LoginModal = () => {
             placeholder='영문 숫자 특수문자 조합으로 8자 이상'
           />
           <Valitext textColor={"#f96854"}>
-            {!PasswordHandler(join.accountPw) && join.accountPw !== "" ? "비밀번호 형식을 맞춰주세요" : ""}
+            {!PasswordHandler(join.accountPw) && join.accountPw !== "" ? "" : "비밀번호 형식을 맞춰주세요"}
           </Valitext>
           <Input
             size='large'

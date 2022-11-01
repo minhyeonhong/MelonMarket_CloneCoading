@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import Header from './Header';
 import Footer from './Footer';
-
+import List from '../pageProps/List';
 import { useSelector } from "react-redux";
 import LoginModal from "../common/LoginModal";
 import CntWriteModal from "../common/CntWriteModal";
@@ -55,7 +55,8 @@ const Layout = (props) => {
                 {loginModal && <LoginModal />}
                 {/* 글작성 모달 */}
                 {cntWriteModal && <CntWriteModal />}
-                {props.children}
+                {/* {props.children} */}
+                <List />
                 <Footer />
 
             </StLayoutDiv>
