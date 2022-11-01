@@ -15,7 +15,6 @@ const hInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
         "Access_Token": getCookie("Access_Token") === undefined ? "" : getCookie("Access_Token"),
-        // "Access_Token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZWg1MTY0MiIsImV4cCI6MTY2NzIxNDk3MCwiaWF0IjoxNjY3MjEzMTcwfQ.2kqyVAQqnS7HuFPktVxR76mZE12WIezsq_0qWT-2boA"
     },
     withCredentials: true,
 });
