@@ -87,7 +87,7 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
+            {/* <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5> */}
             <StNavWrap>
                 <StSearchWrap>
                     <input type="text" />
