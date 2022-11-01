@@ -52,7 +52,7 @@ const Mypage = () => {
                                     return (
                                         <StEachContent key={val.postId} onClick={() => moveToDetailPage(val.postId)}>
                                             <div>
-                                                <img style={{ width: "22px0", height: "220px" }} src={val.images.length > 0 && val.images[0].image} />
+                                                <img style={{ width: "22px0", height: "220px" }} src={val.images.length < 1 ? "" : val.images[0].image} />
                                             </div>
                                             <div>
                                                 <div>title:{val.title}</div>

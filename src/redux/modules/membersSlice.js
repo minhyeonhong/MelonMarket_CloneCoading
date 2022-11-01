@@ -124,8 +124,8 @@ export const membersSlice = createSlice({
                 setCookie("nickname", action.payload.data.accountName)
                 alert("로그인에 성공하였습니다!")
                 state.loginModal = !state.loginModal;
-            } else {
-
+                //토큰때문에 리프레쉬 해줌
+                window.location.replace("/")
             }
         },
         [__login.rejected]: (state, action) => {

@@ -230,7 +230,7 @@ export const contentsSlice = createSlice({
 
             if (action.payload.data.statusCode === 200) {
                 state.contents.splice(action.payload.delContentId, 1)
-                window.location.replace("/")
+                window.location.replace("/mypage")
             }
 
         },
