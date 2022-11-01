@@ -111,7 +111,6 @@ export const __mypage = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const res = await contentsApis.mypageAX();
-
             return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -233,7 +232,6 @@ export const contentsSlice = createSlice({
         },
         //__mypage
         [__mypage.fulfilled]: (state, action) => {
-            console.log("__mypage action.payload ", action.payload);
             state.mypage = action.payload;
         },
         [__mypage.rejected]: (state, action) => {

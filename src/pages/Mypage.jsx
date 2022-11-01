@@ -10,13 +10,14 @@ const Mypage = () => {
     const { mypage } = useSelector((state) => state.contentsSlice);
 
     useEffect(() => {
-        console.log("dispatch useEffect")
-        // dispatch(__mypage());
+        dispatch(__mypage());
     }, [])
 
     useEffect(() => {
         console.log("useEffect mypage", mypage);
     }, [mypage])
+
+    const [swap, setSwap] = useState();
 
     return (
         <Layout>
@@ -26,7 +27,7 @@ const Mypage = () => {
                         <StProfilePhoto>
                             여기 내 프로필 사진 들어갈거임
                         </StProfilePhoto>
-                        여긴 내 계정 설명란임
+                        닉네임 : {mypage !== undefined && mypage.accountName}
                     </StProfileContainer>
 
                     <StToggleMenus>
@@ -36,17 +37,28 @@ const Mypage = () => {
                     </StToggleMenus>
                     <StProfileText>
                         <StEachContainer>
-                            <StEachContent>각각 판매하는 물건임</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
+                            {mypage !== undefined &&
+                                mypage.myPost.map((val) => {
+                                    return (
+                                        <StEachContent key={val.postId}>
+                                            <div>
+                                                <img style={{ width: "22px0", height: "220px" }} src={val.images[0].image} />
+                                            </div>
+                                            <div>
+                                                <div>title:{val.title}</div>
+                                                <div>content:{val.price} | {val.modifiedAt} </div>
+                                            </div>
+                                            <div>
+                                                palce:{val.place}
+                                            </div>
+                                        </StEachContent>
+
+                                    )
+                                })
+                            }
+
                         </StEachContainer>
-                        <StEachContainer>
-                            <StEachContent>각각 판매하는 물건임</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
-                            <StEachContent>각각 판매하는 물건</StEachContent>
-                        </StEachContainer>
+
                     </StProfileText>
                 </StWrap>
 
@@ -76,7 +88,7 @@ const StProfilePhoto = styled.div`
     flex-shrink: 0;
     width: 310px;
     height: 310px;
-    position: relative;
+    /* position: relative; */
     color: black;
     border: 3px solid black;
 `;

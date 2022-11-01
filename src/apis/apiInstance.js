@@ -59,11 +59,11 @@ export const contentsApis = {
     insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
     //컨텐츠 전체 불러오기
-    getContentAX: (contentInfo) => hInstance.get(`/api/posts`),
+    getContentAX: (contentInfo) => nhinstance.get(`/api/posts`),
 
     //컨텐츠 상세 불러오기
     ///api/posts/{postId}
-    getContentDetailAX: (contentInfo) => hInstance.get(`/api/posts/${contentInfo}`),
+    getContentDetailAX: (contentInfo) => nhinstance.get(`/api/posts/${contentInfo}`),
 
     //컨텐츠 삭제
     deleteContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
