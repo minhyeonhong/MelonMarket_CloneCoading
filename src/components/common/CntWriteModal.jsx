@@ -30,7 +30,7 @@ const CntWriteModal = () => {
   });
 
   //이미지 업로드 훅
-  const [files, fileUrls, uploadHandle] = useImgUpload(6, true, 0.3, 1000);
+  const [files, fileUrls, uploadHandle] = useImgUpload(5, true, 0.3, 1000);
 
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef();
