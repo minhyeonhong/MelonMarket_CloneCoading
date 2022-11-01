@@ -20,24 +20,17 @@ const Detail = () => {
         dispatch(__getContentDetail(id));
     }, []);
 
-    useEffect(() => {
-        console.log(comments);
-    }, [content]);
-
 
     return (
 
-        <div>
-            <Header></Header>
-
+        <Layout>
             <div>
                 <StPhotoContainer>
                     {
                         content.images !== undefined &&
                         content.images.map((item) => {
                             return (
-                                <StPhoto src=
-                                    {item.image}></StPhoto>
+                                <StPhoto src={item.image} key={item.imageId} />
                             )
                         })
                     }
@@ -85,13 +78,13 @@ const Detail = () => {
                     <StContentPrice>가격임</StContentPrice>
                     <StContentInfo>내용들어감</StContentInfo>
                 </StContentContainer> */}
-        </div >
+        </Layout >
     )
 }
 
 
 const StPhotoContainer = styled.section`
-    position: relative;
+    /* position: relative; */
     height: 500px;
     width: 729px;
     margin: 0 auto;
@@ -99,6 +92,9 @@ const StPhotoContainer = styled.section`
 `;
 
 const StPhoto = styled.img`
+/* 크기조절 */
+    width: 220px;
+    height: 220px;
     margin: auto;
     text-align: center;
     /* left: -9999px;

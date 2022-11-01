@@ -119,7 +119,6 @@ export const membersSlice = createSlice({
     extraReducers: {
         //__login
         [__login.fulfilled]: (state, action) => {
-            console.log(action.payload)
             if (action.payload.data.message === "Success Login") {
                 setCookie("Access_Token", action.payload.access_token)
                 setCookie("nickname", action.payload.data.accountName)

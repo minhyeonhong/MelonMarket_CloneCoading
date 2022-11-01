@@ -103,14 +103,18 @@ function Header() {
                 </StNavItem2>
                 {/* {<StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem> } */}
                 <StNavItem onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
-                <div>
-                    <span style={{ marginLeft: "10px", color: "white", fontSize: "17px", border: "1px solid green", borderRadius: "50px", backgroundColor: "orange", padding: "13px", fontFamily: "Arial-bold" }}
-                        onClick={((event) => {
-                            moveToMyPage(event)
-                        })
-                        }
-                    >마이페이지</span>
-                </div>
+
+                {getCookie("Access_Token") ?
+                    <div>
+                        <span style={{ marginLeft: "10px", color: "white", fontSize: "17px", border: "1px solid green", borderRadius: "50px", backgroundColor: "orange", padding: "13px", fontFamily: "Arial-bold" }}
+                            onClick={((event) => {
+                                moveToMyPage(event)
+                            })
+                            }
+                        >마이페이지</span>
+                    </div>
+                    : ""
+                }
             </StNavWrap>
         </HeadContainer>
     );
