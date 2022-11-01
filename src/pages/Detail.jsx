@@ -13,87 +13,79 @@ const Detail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const content = useSelector((state) => state.contentsSlice.content);
-    console.log(content);
-    console.log("스토어에서 가져온 contents", content);
+    const { content, comments } = useSelector((state) => state.contentsSlice);
+
+
     useEffect(() => {
-        dispatch(__getContentDetail());
+        dispatch(__getContentDetail(id));
     }, []);
 
     useEffect(() => {
-        console.log("값이 바뀌니", content);
+        console.log(comments);
     }, [content]);
 
 
     return (
-        <>
-        </>
-        //     <div>
-        //         <Header></Header>
-        //         {
-        //             content !== undefined &&
-        //             (
-        //                 <>
-        //                     {
-        //                         content.map((item) => (item.postId === Number(id) &&
-        //                             (
-        //                                 <div key={item.postId}>
-        //                                     <StPhotoContainer>
-        //                                         <StPhoto src=
-        //                                             {item.images.length > 0 ?
-        //                                                 item.images[0].image : ""}></StPhoto>
-        //                                     </StPhotoContainer>
-        //                                     <StAuthorContainer>
-        //                                         <StAuthorWrap>
-        //                                             <StAuthorProfile></StAuthorProfile>
-        //                                             <StAuthorDivide>
-        //                                                 <StAuthorLeft>
-        //                                                     <strong>{item.accoountName}</strong>
-        //                                                     <div style={{ fontSize: "15px" }}>{item.place}</div>
-        //                                                     <div style={{ fontSize: "10px" }}>{item.createdAt}</div>
-        //                                                 </StAuthorLeft>
 
-        //                                                 <StAuthorRight>매너온도</StAuthorRight>
-        //                                             </StAuthorDivide>
-        //                                         </StAuthorWrap>
-        //                                     </StAuthorContainer>
-        //                                     <StContentContainer>
-        //                                         <StContentTitle>{item.title}</StContentTitle>
-        //                                         <StContentPrice>{item.price}</StContentPrice>
-        //                                         <StContentInfo>{item.content}</StContentInfo>
+        <div>
+            <Header></Header>
 
-        //                                     </StContentContainer>
-        //                                     {/* 댓글 컴포넌츠 호출 */}
-        //                                     <Comment comment={contents.comment}></Comment>
-        //                                 </div>
-        //                             )
+            <div>
+                <StPhotoContainer>
+                    {
+                        content.images !== undefined &&
+                        content.images.map((item) => {
+                            return (
+                                <StPhoto src=
+                                    {item.image}></StPhoto>
+                            )
+                        })
+                    }
+                    {/* <StPhoto src=
+                        {content.images.length > 0 ?
+                            content.images[0].image : ""}></StPhoto> */}
+                </StPhotoContainer>
+                <StAuthorContainer>
+                    <StAuthorWrap>
+                        <StAuthorProfile></StAuthorProfile>
+                        <StAuthorDivide>
+                            <StAuthorLeft>
+                                <strong>{content.accoountName}</strong>
+                                <div style={{ fontSize: "15px" }}>{content.place}</div>
+                                <div style={{ fontSize: "10px" }}>{content.createdAt}</div>
+                            </StAuthorLeft>
 
-        //                         ))
+                            <StAuthorRight>매너온도</StAuthorRight>
+                        </StAuthorDivide>
+                    </StAuthorWrap>
+                </StAuthorContainer>
+                <StContentContainer>
+                    <StContentTitle>{content.title}</StContentTitle>
+                    <StContentPrice>금액 : {content.price}원</StContentPrice>
+                    <StContentInfo>{content.content}</StContentInfo>
 
-        //                     }
-
-        //                 </>
-        //             )
-        //         }
-
-        //         {/* <StPhotoContainer>
-        //             <StPhoto>포토 들어갈 자리</StPhoto>
-        //         </StPhotoContainer>
-        //         <StAuthorContainer>
-        //             <StAuthorWrap>
-        //                 <StAuthorProfile></StAuthorProfile>
-        //                 <StAuthorDivide>
-        //                     <StAuthorLeft>작성자 프로필 사진용</StAuthorLeft>
-        //                     <StAuthorRight>매너온도</StAuthorRight>
-        //                 </StAuthorDivide>
-        //             </StAuthorWrap>
-        //         </StAuthorContainer>
-        //         <StContentContainer>
-        //             <StContentTitle>판매 제품 제목올라가는 자리</StContentTitle>
-        //             <StContentPrice>가격임</StContentPrice>
-        //             <StContentInfo>내용들어감</StContentInfo>
-        //         </StContentContainer> */}
-        //     </div >
+                </StContentContainer>
+                {/* 댓글 컴포넌츠 호출 */}
+                <Comment reply={comments}></Comment>
+            </div>
+            {/* <StPhotoContainer>
+                    <StPhoto>포토 들어갈 자리</StPhoto>
+                </StPhotoContainer>
+                <StAuthorContainer>
+                    <StAuthorWrap>
+                        <StAuthorProfile></StAuthorProfile>
+                        <StAuthorDivide>
+                            <StAuthorLeft>작성자 프로필 사진용</StAuthorLeft>
+                            <StAuthorRight>매너온도</StAuthorRight>
+                        </StAuthorDivide>
+                    </StAuthorWrap>
+                </StAuthorContainer>
+                <StContentContainer>
+                    <StContentTitle>판매 제품 제목올라가는 자리</StContentTitle>
+                    <StContentPrice>가격임</StContentPrice>
+                    <StContentInfo>내용들어감</StContentInfo>
+                </StContentContainer> */}
+        </div >
     )
 }
 
