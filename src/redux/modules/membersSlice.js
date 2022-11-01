@@ -21,7 +21,7 @@ export const __login = createAsyncThunk(
             }
             return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            return thunkAPI.rejectWithValue(error.response.data);
         }
     }
 )
@@ -124,12 +124,14 @@ export const membersSlice = createSlice({
                 setCookie("nickname", action.payload.data.accountName)
                 alert("로그인에 성공하였습니다!")
                 state.loginModal = !state.loginModal;
+                //토큰때문에 리프레쉬 해줌
+                window.location.replace("/")
             }
-            state.isLoading = false;
         },
         [__login.rejected]: (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
+            if (action.payload.status === 400) {
+                alert(action.payload.message);
+            }
         },
         //__join
         [__join.fulfilled]: (state, action) => {

@@ -14,7 +14,7 @@ export const __insertContent = createAsyncThunk(
 
             return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            return thunkAPI.rejectWithValue(error.response)//.data);
         }
     }
 )
@@ -85,8 +85,11 @@ export const __editContent = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const res = await contentsApis.updateContentAX(payload)
-
-            return thunkAPI.fulfillWithValue(res.data);
+            const obj = {
+                upContentId: payload,
+                data: res.data,
+            }
+            return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -98,8 +101,11 @@ export const __deleteContent = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const res = await contentsApis.deleteContentAX(payload)
-
-            return thunkAPI.fulfillWithValue(res);
+            const obj = {
+                delContentId: payload,
+                data: res.data,
+            }
+            return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -149,19 +155,19 @@ export const contentsSlice = createSlice({
         },
         //댓글 삭제
         [__deleteComment.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+            state.isLoading = true; // 
         },
         [__deleteComment.fulfilled]: (state, action) => {
-            state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+            state.isLoading = false; // 
             if (action.payload.data.statusCode === 200) {
                 state.comments = state.comments.splice(action.payload.delCommentId, 1)
             }
-            // 바로 지워지려면 state.commentList를 설정...
-            // 서버 단에서 지우는게 있고 리덕스에서 지우는게 따로 있다.
+
         },
+
         [__deleteComment.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+            state.isLoading = false; // 
+            state.error = action.payload; // 
         },
 
         //__게시글 작성
@@ -169,11 +175,12 @@ export const contentsSlice = createSlice({
             if (action.payload.statusCode === 200) {
                 alert("글작성 성공!")
                 state.cntWriteModal = !state.cntWriteModal;
-                //useNavigate("/mypage");
+                window.location.replace("/mypage");
 
             }
         },
         [__insertContent.rejected]: (state, action) => {
+            console.log("__insertContent error", action.payload)
             state.error = action.payload;
         },
         //__게시글 조회        
@@ -207,28 +214,29 @@ export const contentsSlice = createSlice({
             state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
         },
         [__editContent.fulfilled]: (state, action) => {
-            state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+            state.isLoading = false; // 
             state.contents = action.payload;
         },
         [__editContent.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+            state.isLoading = false; // 
+            state.error = action.payload; // 
         },
         //게시글 삭제
         [__deleteContent.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+            state.isLoading = true; // 
         },
         [__deleteContent.fulfilled]: (state, action) => {
-            state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.contents = state.commentList.filter(
-                (item) => item.id !== action.payload
-            );
-            // 바로 지워지려면 state.commentList를 설정...
-            // 서버 단에서 지우는게 있고 리덕스에서 지우는게 따로 있다.
+            state.isLoading = false; // 
+
+            if (action.payload.data.statusCode === 200) {
+                state.contents.splice(action.payload.delContentId, 1)
+                window.location.replace("/mypage")
+            }
+
         },
         [__deleteContent.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+            state.isLoading = false; // 
+            state.error = action.payload; // 
         },
         //__mypage
         [__mypage.fulfilled]: (state, action) => {

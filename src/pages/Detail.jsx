@@ -1,13 +1,14 @@
 import React from 'react'
 import Header from '../components/layout/Header'
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../components/common/Comment"
 import Layout from '../components/layout/Layout';
-import { __getContentDetail } from "../redux/modules/contentsSlice"
+import { __getContentDetail, __deleteContent, __editContent } from "../redux/modules/contentsSlice"
+import { getCookie } from '../cookie/cookie';
 
 const Detail = () => {
     const dispatch = useDispatch();
@@ -15,11 +16,45 @@ const Detail = () => {
 
     const { content, comments } = useSelector((state) => state.contentsSlice);
 
-
+    console.log(getCookie("nickname"));
     useEffect(() => {
         dispatch(__getContentDetail(id));
     }, []);
 
+
+    const [edit, setEdit] = useState(false);
+    const [target, setTarget] = useState();
+    const [revise, setRevise] = useState();
+
+    const [editContent, setEditContent] = useState({
+        title: "",
+        content: "",
+        id: id,
+    });
+
+    //삭제 기능
+    const deleteHandler = (id) => {
+        dispatch(__deleteContent(id))
+    }
+
+    //수정 기능
+    const editHandler = () => {
+        setEdit(true);
+        // dispatch(__editContent(id))
+    }
+
+    const onContentUpdate = (id) => {
+        // dispatch(__editContent({ id: id, target: target }));
+        setEdit(false);
+    };
+
+    const onChangeHandler = (event) => {
+        const { name, value } = event.target;
+        setRevise({ ...revise, [name]: value });
+    };
+    const btnCancle = () => {
+        setEdit(false);
+    };
 
     return (
 
@@ -43,9 +78,9 @@ const Detail = () => {
                         <StAuthorProfile></StAuthorProfile>
                         <StAuthorDivide>
                             <StAuthorLeft>
-                                <strong>{content.accoountName}</strong>
+                                <strong>{content.accountName}</strong>
                                 <div style={{ fontSize: "15px" }}>{content.place}</div>
-                                <div style={{ fontSize: "10px" }}>{content.createdAt}</div>
+                                <div style={{ fontSize: "10px", marginRight: "10px" }}>{content.createdAt}</div>
                             </StAuthorLeft>
 
                             <StAuthorRight>매너온도</StAuthorRight>
@@ -56,6 +91,52 @@ const Detail = () => {
                     <StContentTitle>{content.title}</StContentTitle>
                     <StContentPrice>금액 : {content.price}원</StContentPrice>
                     <StContentInfo>{content.content}</StContentInfo>
+                    {
+                        getCookie("nickname") === content.accountName &&
+                        <div>
+                            <StModifyButton onClick={(() => {
+                                deleteHandler(id)
+                            })}>삭제하기</StModifyButton>
+                            <StModifyButton style={{ backgroundColor: "green" }} onClick={(() => {
+                                editHandler(id)
+                            })}>수정하기</StModifyButton>
+                        </div>
+                    }
+                    {edit ? (
+                        <>
+                            <input
+                                type='textarea'
+                                value={target}
+                                onChange={({ target }) => setTarget(target.value)}
+                            />
+                            <div className='detailEdit-btn'>
+                                <button
+                                    onClick={onContentUpdate(content.id)}
+                                    className='detailBody-btn'
+                                >
+                                    수정완료
+                                </button>
+                                <button
+                                    onClick={() => btnCancle()}
+                                    className='detailBody-btn'
+                                >
+                                    수정취소
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className='detailEdit-btn'>
+                                <input
+                                    type='text'
+                                    name='content'
+                                    placeholder='수정하실 내용을 입력하세요'
+                                    onChange={onChangeHandler}
+                                ></input>
+                            </div>
+                        </>
+                    )
+                    }
 
                 </StContentContainer>
                 {/* 댓글 컴포넌츠 호출 */}
@@ -81,6 +162,13 @@ const Detail = () => {
         </Layout >
     )
 }
+
+const StModifyButton = styled.button`
+border: 2px solid red;
+font-weight: 700;
+width: 100px;
+height: 50px;
+`;
 
 
 const StPhotoContainer = styled.section`
