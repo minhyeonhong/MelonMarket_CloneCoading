@@ -1,8 +1,11 @@
 import { useState } from "react";
-
-//이미지 압축
+//이미지 압축 라이브러리
 import imageCompression from "browser-image-compression";
 
+//limitCount 파일갯수제한
+//isComp 압축 여부 true :이미지 압축 , false:이미지 압축안함
+//imgMaxSize 압축 최대 크기 기본값1mb
+//imgMaxWidthHeight 압축 이미지 최대 width,height 기본값1920px
 const useImgUpload = (limitCount = 0, isComp = false, imgMaxSize = 1, imgMaxWidthHeight = 1920) => {
     //이미지 파일 & 프리뷰URL useState
     const [imgFiles, setImgFiles] = useState([]);
