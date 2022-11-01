@@ -41,12 +41,13 @@ const HomeAd = () => {
 
 export default HomeAd;
 
+
 const StBannerContainer = styled.div`
     width: 1920px;
     height: 760px;
     margin: 0 auto;
     padding: 0 200px;
-    position: relative;
+    //position: relative;
     background-color: #FBF7F2;
     display: flex;
 `;

@@ -41,11 +41,12 @@ export const loginApis = {
 };
 
 export const commentApis = {
-
+    ///api/{postId}/comment
     //댓글 작성
-    commentAddAX: (commentInfo) => hInstance.post(`${commentInfo.url}/comment`, commentInfo.data),
+    commentAddAX: (commentInfo) => hInstance.post(`/api/${commentInfo.id}/comment`, commentInfo.comment),
 
     //댓글 삭제
+    //명세서 /api/comment/{commetId}
     commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`),
 
 
@@ -57,8 +58,12 @@ export const contentsApis = {
     //컨텐츠 작성
     insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
-    //컨텐츠 불러오기
+    //컨텐츠 전체 불러오기
     getContentAX: (contentInfo) => hInstance.get(`/api/posts`),
+
+    //컨텐츠 상세 불러오기
+    ///api/posts/{postId}
+    getContentDetailAX: (contentInfo) => hInstance.get(`/api/posts/${contentInfo}`),
 
     //컨텐츠 삭제
     deleteContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
