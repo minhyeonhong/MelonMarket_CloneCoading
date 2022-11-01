@@ -14,7 +14,7 @@ export const __insertContent = createAsyncThunk(
 
             return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            return thunkAPI.rejectWithValue(error.response)//.data);
         }
     }
 )
@@ -169,11 +169,12 @@ export const contentsSlice = createSlice({
             if (action.payload.statusCode === 200) {
                 alert("글작성 성공!")
                 state.cntWriteModal = !state.cntWriteModal;
-                //useNavigate("/mypage");
+                window.location.replace("/mypage");
 
             }
         },
         [__insertContent.rejected]: (state, action) => {
+            console.log("__insertContent error", action.payload)
             state.error = action.payload;
         },
         //__게시글 조회        
