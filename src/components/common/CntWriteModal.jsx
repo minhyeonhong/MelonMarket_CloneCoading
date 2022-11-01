@@ -60,8 +60,8 @@ const CntWriteModal = () => {
 
       //압축 옵션
       const options = {
-        maxSizeMB: 0.02,
-        maxWidthOrHeight: 220,
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 1000,
         useWebWorker: true,
       };
 
