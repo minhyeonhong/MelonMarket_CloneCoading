@@ -59,6 +59,20 @@ export const __deleteContent = createAsyncThunk(
     }
 )
 
+export const __mypage = createAsyncThunk(
+    "contents/__mypage",
+    async (payload, thunkAPI) => {
+        try {
+            const res = await contentsApis.mypageAX();
+
+            return thunkAPI.fulfillWithValue(res.data);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
+
+
 
 
 
@@ -67,7 +81,8 @@ export const contentsSlice = createSlice({
     name: "contents",
     initialState: {
         contents: [],
-        cntWriteModal: false
+        cntWriteModal: false,
+        mypage: {}
     },
     reducers: {
         //모달 토글
@@ -127,6 +142,14 @@ export const contentsSlice = createSlice({
         [__deleteContent.rejected]: (state, action) => {
             state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
             state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+        },
+        //__mypage
+        [__mypage.fulfilled]: (state, action) => {
+            console.log("__mypage action.payload ", action.payload);
+            state.mypage = action.payload;
+        },
+        [__mypage.rejected]: (state, action) => {
+            state.error = action.payload;
         },
     }
 });

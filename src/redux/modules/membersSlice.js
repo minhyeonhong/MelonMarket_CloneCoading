@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
 
 import { loginApis } from "../../apis/apiInstance"
-import { setCookie, getCookie } from "../../cookie/cookie"
+import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,31 @@ export const __login = createAsyncThunk(
                 data: res.data
             }
             return thunkAPI.fulfillWithValue(obj);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
+
+//로그아웃 Thunk
+export const __logout = createAsyncThunk(
+    "members/__logout",
+    async (payload, thunkAPI) => {
+        try {
+
+            loginApis.logoutAX()
+                .then((res) => {
+                    if (res.data.statusCode === 200) {
+                        delCookie("Access_Token")
+                        delCookie("nickname")
+                        alert("로그아웃 되었습니다")
+                        window.location.replace("/")
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
