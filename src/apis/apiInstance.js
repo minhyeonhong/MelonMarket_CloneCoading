@@ -34,7 +34,7 @@ export const loginApis = {
     loginCheckAX: (userinfo) => nhinstance.post(`${userinfo.url}`, userinfo.data),
 
     //게시글 삭제
-    getDeletePostAX: (id) => nhinstance.delete(`/detail/delete?boardId=${id}`),
+    getDeletePostAX: (id) => nhinstance.delete(`/api/posts/${id}`),
 
     //마이페이지 계정 수정 페이지
     putUserInfoAX: (userinfo) => nhinstance.put("/my/update", userinfo),
@@ -66,10 +66,10 @@ export const contentsApis = {
     getContentDetailAX: (contentInfo) => nhinstance.get(`/api/posts/${contentInfo}`),
 
     //컨텐츠 삭제
-    deleteContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
+    deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
 
     //컨텐츠 수정
-    updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`, contentInfo),
+    updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
 
     //마이페이지
     mypageAX: () => hInstance.get(`/api/myPage`),
