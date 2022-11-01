@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import melonlogo from "../../assets/melonlogo.png"
 import { useSelector, useDispatch } from "react-redux";
-import { modalTogle, __login, __join } from "../../redux/modules/membersSlice"
+import { modalTogle, __login, __join, __logout } from "../../redux/modules/membersSlice"
 import { cntWriteModalTogle } from "../../redux/modules/contentsSlice"
 import { getCookie, setCookie, delCookie } from '../../cookie/cookie';
 import { useEffect } from 'react';
@@ -66,10 +66,7 @@ function Header() {
     const askLogOut = (event) => {
         event.stopPropagation()
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            delCookie("Access_Token")
-            delCookie("nickname")
-            navigate("/");
-            alert("로그아웃 되었습니다")
+            dispatch(__logout());
         } else {
             alert("취소합니다")
         }
@@ -90,34 +87,20 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
-
+            {/* <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5> */}
             <StNavWrap>
-                {getCookie("Access_Token") ? (
-
-                    <div>
-                        <h3 className="nav-btn"
-                            // onClick={() => {
-                            //     delCookie("Access_Token");
-                            //     delCookie("nickname");
-                            //     navigate("/");
-                            // }}
-                            onClick={((event) => {
-                                askLogOut(event)
-                            })}
-                            style={{ textDecoration: "none", fontSize: "30px", marginRight: "10px" }}>
-                            <span style={{ color: "#FA4C1A", marginRight: "50px", fontSize: "30px" }}>
-                                {nickname}님, 안녕하세요!
-                            </span>
-                            로그아웃
-                        </h3>
-                    </div>
-
-
-
-                ) : (
-                    <StNavItem2 onClick={() => { loginModalToggle() }}>로그인</StNavItem2>
-                )}
+                <StSearchWrap>
+                    <input type="text" />
+                    <StNavItem>검색</StNavItem>
+                </StSearchWrap>
+                <StNavItem2 onClick={(event) => {
+                    getCookie("Access_Token") ?
+                        askLogOut(event)
+                        :
+                        loginModalToggle()
+                }}>
+                    {getCookie("Access_Token") ? "로그아웃" : "로그인"}
+                </StNavItem2>
                 {/* {<StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem> } */}
                 <StNavItem onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
                 <div>
@@ -211,3 +194,16 @@ const StNavItem2 = styled.button`
         color: white;
     }
     `;
+const StSearchWrap = styled.div`
+    width : 30%;
+    height : 80%;
+    display : flex;
+    flex-direction : row;
+    align-items : center;
+    flex-wrap:wrap;
+    gap : 5px;
+    input {
+        height : 80%;
+    }
+
+`

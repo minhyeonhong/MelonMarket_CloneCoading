@@ -256,6 +256,7 @@ const Valitext = styled.div`
 `;
 
 const StModalBackground = styled.div`
+margin-top : 70px;
   position: absolute;
   top: 0;
   left: 0;

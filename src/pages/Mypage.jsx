@@ -1,12 +1,25 @@
-import React from 'react'
-import Header from '../components/layout/Header'
+import React, { useState, useEffect } from 'react'
+import Layout from '../components/layout/Layout';
 import styled from "styled-components";
 
+import { __mypage } from "../redux/modules/contentsSlice"
+import { useSelector, useDispatch } from "react-redux";
+
 const Mypage = () => {
+    const dispatch = useDispatch();
+    const { mypage } = useSelector((state) => state.contentsSlice);
+
+    useEffect(() => {
+        console.log("dispatch useEffect")
+        // dispatch(__mypage());
+    }, [])
+
+    useEffect(() => {
+        console.log("useEffect mypage", mypage);
+    }, [mypage])
 
     return (
-        <div>
-            <Header />
+        <Layout>
             <StContainer>
                 <StWrap>
                     <StProfileContainer>
@@ -38,7 +51,7 @@ const Mypage = () => {
                 </StWrap>
 
             </StContainer>
-        </div>
+        </Layout>
     )
 }
 

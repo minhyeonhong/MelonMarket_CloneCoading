@@ -22,6 +22,8 @@ const hInstance = axios.create({
 export const loginApis = {
     //로그인
     loginAX: (loginInfo) => nhinstance.post(`/auth/login`, loginInfo),
+    //로그아웃
+    logoutAX: () => hInstance.delete(`/api/logout`,),
     //회원가입
     joinAX: (joinInfo) => nhinstance.post(`/auth/signup`, joinInfo),
 
@@ -69,6 +71,8 @@ export const contentsApis = {
     //컨텐츠 수정
     updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`, contentInfo),
 
+    //마이페이지
+    mypageAX: () => hInstance.get(`/api/myPage`),
 };
 
 
