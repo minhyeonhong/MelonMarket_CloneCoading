@@ -15,7 +15,7 @@ const Router = () => {
                 {/* 마이페이지 */}
                 <Route path="/mypage" element={<Mypage />} />
                 {/* 상세보기 페이지 */}
-                <Route path="/detail" element={<Detail />} />
+                <Route path="/detail/:id" element={<Detail />} />
 
             </Routes>
         </BrowserRouter>

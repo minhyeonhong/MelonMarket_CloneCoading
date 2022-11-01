@@ -1,21 +1,23 @@
 // 콘솔 주석 완료
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { __addComment, __deleteComment } from "../redux/modules/CommentsSlice"
+import { useDispatch } from "react-redux";
+import { __deleteComment, __insertComment } from "../../redux/modules/contentsSlice"
+
+
+// import { __addComment, __deleteComment } from "../redux/modules/commentsSlice"
 import styled from "styled-components";
 
-const Comment = () => {
+const Comment = ({ reply }) => {
 
-    const { id } = useParams()
-    let newid = Number(id)
+    const contentId = useParams()
+    console.log(contentId);
 
     const dispatch = useDispatch("");
     const [comment, setComment] = useState({
         comment: "",
     });
 
-    const comments = useSelector((state) => state.comments.comments)
     const onChangeInputHandler = (event) => {
         const { name, value } = event.target;
         setComment({
@@ -24,20 +26,18 @@ const Comment = () => {
         });
     };
 
+
+    // 댓글 작성
     const onAddCommentButtonHandler = (event) => {
         event.preventDefault();
         const obj = {
-            data: {
-                comment: comment
-            },
-            url: `/api/${id}/comment`,
+            id: contentId.id,
+            comment,
         }
         if (comment.comment.trim() === "") {
             return alert("모든 항목을 입력해주세요.");
         }
-
-        dispatch(__addComment(obj));
-
+        dispatch(__insertComment(obj));
         setComment({
             comment: "",
         });
@@ -46,20 +46,19 @@ const Comment = () => {
 
     // 댓글 삭제 버튼
     const onDeleteButton = (id) => {
+        console.log("온클릭 삭제 id", id);
         dispatch(__deleteComment(id))
-        alert("삭제하시겠습니까?")
+        // alert("삭제하시겠습니까?")
     };
 
     //디스패치-명령 // 리스트로 
-    useEffect(() => {
-        // dispatch(__getComment(newid));
-    }, [dispatch]);
-
-
-
+    // useEffect(() => {
+    //     dispatch(__getContent(newid));
+    // }, [dispatch]);
 
     return (
         <>
+            <h1 style={{ textAlign: "center" }}>댓글 남기기</h1>
             <StCommentBox >
                 <StcommentInput
                     placeholder="(100자 이내로 입력해주세요)"
@@ -76,18 +75,18 @@ const Comment = () => {
 
             <StCommentListBox>
                 {
-                    comments.map((item) => {
+                    reply !== undefined &&
+                    reply.map((item) => {
 
                         return (
 
-                            <StCommentList key={item.commentid}>
-                                <Ststrong>{item.nickname}</Ststrong>
-                                <Stspan>{item.comment}</Stspan>
-                                <Button2 onClick={() => onDeleteButton(item.commentid)}>삭제하기</Button2>
+                            <StCommentList key={item.commentId}>
+                                <Ststrong>{item.accountName}</Ststrong>
+                                <StSpan>{item.comment}</StSpan>
+                                <Button2 onClick={() => onDeleteButton(item.commentId)}>삭제하기</Button2>
                             </StCommentList>
                         )
                     }
-
                     )
                 }
             </StCommentListBox>
@@ -115,6 +114,7 @@ const StcommentInput = styled.input`
   height:40px;
   margin-left:10px;
   text-indent:15px;
+  margin-bottom: 20px;
 `;
 
 const Button = styled.button`
@@ -123,6 +123,7 @@ const Button = styled.button`
   font-weight:600;
   color:#fff;
   background-color:#22B14C;
+  border-radius: 10px;
   
 `
 
@@ -132,6 +133,7 @@ const StCommentListBox = styled.div`
 `
 
 const StCommentList = styled.div`
+  border-top: 1px solid #333333;
   border-bottom: 1px solid #333333;
   display:flex;
   padding:20px 0;
@@ -144,10 +146,10 @@ const Ststrong = styled.strong`
   display:block;
 `;
 
-const Stspan = styled.span`
+const StSpan = styled.span`
   width:360px;
+  height: 50px;
   padding:8px;
-  color:#fff;
   display:block;
 `;
 const Button2 = styled.button`
@@ -159,4 +161,5 @@ const Button2 = styled.button`
   font-weight:600;
   color:#fff;
   background-color:#e50913;
+  border-radius: 10px;
 `
