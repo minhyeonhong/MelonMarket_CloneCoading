@@ -2,14 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { flushSync } from "react-dom";
 import { contentsApis } from "../../apis/apiInstance"
 import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
+import { useNavigate } from "react-router-dom";
 
 export const __insertContent = createAsyncThunk(
     "contents/__insertContent",
     async (payload, thunkAPI) => {
         try {
-            const res = contentsApis.insertContentAX(payload)
+            const res = await contentsApis.insertContentAX(payload)
 
-            return thunkAPI.fulfillWithValue(res);
+            return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -31,11 +32,13 @@ export const contentsSlice = createSlice({
     extraReducers: {
         //__insertContent
         [__insertContent.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            console.log("action.payload : ", action.payload);
+            if (action.payload.statusCode === 200) {
+                alert("글작성 성공!")
+                state.cntWriteModal = !state.cntWriteModal;
+                useNavigate("/mypage");
+            }
         },
         [__insertContent.rejected]: (state, action) => {
-            state.isLoading = false;
             state.error = action.payload;
         },
 

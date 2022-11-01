@@ -19,7 +19,6 @@ export const __login = createAsyncThunk(
                 access_token: res.headers.access_token,
                 data: res.data
             }
-            console.log("objobjobjobj", obj)
             return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
