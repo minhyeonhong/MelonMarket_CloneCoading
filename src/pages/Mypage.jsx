@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/Layout';
 import styled from "styled-components";
 
-import { __mypage } from "../redux/modules/contentsSlice"
+import { __mypage, __getContentDetail } from "../redux/modules/contentsSlice"
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { mypage } = useSelector((state) => state.contentsSlice);
 
     useEffect(() => {
@@ -17,7 +19,15 @@ const Mypage = () => {
         console.log("useEffect mypage", mypage);
     }, [mypage])
 
-    const [swap, setSwap] = useState();
+    const [swap, setSwap] = useState(1);
+
+    const toggleGoods = (num) => {
+        setSwap(num);
+    }
+
+    const moveToDetailPage = (postId) => {
+        navigate(`/detail/${postId}`)
+    }
 
     return (
         <Layout>
@@ -31,32 +41,36 @@ const Mypage = () => {
                     </StProfileContainer>
 
                     <StToggleMenus>
-                        <StToggleMenu>누르면 내 상품 보여줌</StToggleMenu>
-                        <StToggleMenu>누르면 내 찜 목록 보여줌
-                        </StToggleMenu>
+                        <StToggleMenu onClick={() => toggleGoods(1)}>내 상품</StToggleMenu>
+                        <StToggleMenu onClick={() => toggleGoods(2)}>찜 상품</StToggleMenu>
                     </StToggleMenus>
                     <StProfileText>
                         <StEachContainer>
                             {mypage !== undefined &&
+                                swap === 1 &&
                                 mypage.myPost.map((val) => {
                                     return (
-                                        <StEachContent key={val.postId}>
+                                        <StEachContent key={val.postId} onClick={() => moveToDetailPage(val.postId)}>
                                             <div>
-                                                <img style={{ width: "22px0", height: "220px" }} src={val.images[0].image} />
+                                                <img style={{ width: "22px0", height: "220px" }} src={val.images.length < 1 ? "" : val.images[0].image} />
                                             </div>
                                             <div>
                                                 <div>title:{val.title}</div>
-                                                <div>content:{val.price} | {val.modifiedAt} </div>
+                                                <div>price:{val.price} | {val.modifiedAt} </div>
                                             </div>
                                             <div>
-                                                palce:{val.place}
+                                                place:{val.place}
                                             </div>
                                         </StEachContent>
 
                                     )
                                 })
-                            }
 
+                            }
+                            {mypage !== undefined &&
+                                swap === 2 &&
+                                <StEachContent> 찜상품 해야함</StEachContent>
+                            }
                         </StEachContainer>
 
                     </StProfileText>

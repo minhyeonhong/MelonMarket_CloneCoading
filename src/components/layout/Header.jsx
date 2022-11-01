@@ -102,7 +102,12 @@ function Header() {
                     {getCookie("Access_Token") ? "로그아웃" : "로그인"}
                 </StNavItem2>
                 {/* {<StNavItem onClick={() => { loginModalToggle() }}>Login</StNavItem> } */}
-                <StNavItem onClick={() => { cntWriteModalToggle() }}>판매하기</StNavItem>
+                <StNavItem onClick={() => {
+                    getCookie("Access_Token") ?
+                        cntWriteModalToggle()
+                        :
+                        alert("로그인 후 이용해주세요.")
+                }}>판매하기</StNavItem>
 
                 {getCookie("Access_Token") ?
                     <div>
