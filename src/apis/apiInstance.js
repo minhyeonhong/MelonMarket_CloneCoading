@@ -46,12 +46,24 @@ export const commentApis = {
     //댓글 삭제
     commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`),
 
+
+
 };
 
 
 export const contentsApis = {
-    //컨텐츠
+    //컨텐츠 작성
     insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
+
+    //컨텐츠 불러오기
+    getContentAX: (contentInfo) => hInstance.get(`/api/posts`),
+
+    //컨텐츠 삭제
+    deleteContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
+
+    //컨텐츠 수정
+    updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`, contentInfo),
+
 };
 
 

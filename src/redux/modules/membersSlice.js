@@ -30,10 +30,10 @@ export const __join = createAsyncThunk(
     "members/__join",
     async (payload, thunkAPI) => {
         try {
-            console.log("회원가입 페이로드", payload);
+
             loginApis.joinAX(payload)
                 .then((response) => {
-                    console.log("회원가입 response", response);
+
                     if (response.msg === 200 || 200) {
                         alert('회원가입에 성공하였습니다!')
 
@@ -56,7 +56,7 @@ export const __loginCheck = createAsyncThunk(
     "members/__loginCheck",
     async (payload, thunkAPI) => {
         try {
-            console.log("중복체크 페이로드", payload);
+
             loginApis.loginCheckAX(payload)
                 .then((response) => {
                     if (response.statusCode === 200 || '200') {
