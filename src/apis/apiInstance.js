@@ -42,7 +42,7 @@ export const loginApis = {
 export const commentApis = {
 
     //댓글 작성
-    commentAddAX: (commentInfo) => hInstance.post(`${commentInfo.url}/comment`, commentInfo.data),
+    commentAddAX: (commentInfo) => hInstance.post(`/api/${commentInfo.id}/comment`, commentInfo.comment),
 
     //댓글 삭제
     commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`),

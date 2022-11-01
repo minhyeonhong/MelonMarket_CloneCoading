@@ -2,20 +2,25 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __addComment, __deleteComment } from "../redux/modules/CommentsSlice"
+import { __addComment, __deleteComment } from '../../redux/modules/commentsSlice';
+import { __insertContent, __insertComment } from "../../redux/modules/contentsSlice"
+import { __getContent } from "../../redux/modules/contentsSlice"
+
+// import { __addComment, __deleteComment } from "../redux/modules/commentsSlice"
 import styled from "styled-components";
 
-const Comment = () => {
+const Comment = (props) => {
 
     const { id } = useParams()
     let newid = Number(id)
+
+    console.log(props.comments, '프롭스로 받아온 값임');
 
     const dispatch = useDispatch("");
     const [comment, setComment] = useState({
         comment: "",
     });
 
-    const comments = useSelector((state) => state.comments.comments)
     const onChangeInputHandler = (event) => {
         const { name, value } = event.target;
         setComment({
@@ -24,20 +29,18 @@ const Comment = () => {
         });
     };
 
+
+    // 댓글 작성
     const onAddCommentButtonHandler = (event) => {
         event.preventDefault();
         const obj = {
-            data: {
-                comment: comment
-            },
-            url: `/api/${id}/comment`,
+            id,
+            comment,
         }
         if (comment.comment.trim() === "") {
             return alert("모든 항목을 입력해주세요.");
         }
-
-        dispatch(__addComment(obj));
-
+        dispatch(__insertComment(obj));
         setComment({
             comment: "",
         });
@@ -51,15 +54,13 @@ const Comment = () => {
     };
 
     //디스패치-명령 // 리스트로 
-    useEffect(() => {
-        // dispatch(__getComment(newid));
-    }, [dispatch]);
-
-
-
+    // useEffect(() => {
+    //     dispatch(__getContent(newid));
+    // }, [dispatch]);
 
     return (
         <>
+            <h1 style={{ textAlign: "center" }}>댓글 남기기</h1>
             <StCommentBox >
                 <StcommentInput
                     placeholder="(100자 이내로 입력해주세요)"
@@ -74,23 +75,22 @@ const Comment = () => {
                 </Button>
             </StCommentBox>
 
-            <StCommentListBox>
+            {/* <StCommentListBox>
                 {
                     comments.map((item) => {
 
                         return (
 
-                            <StCommentList key={item.commentid}>
+                            <StCommentList key={item.commentId}>
                                 <Ststrong>{item.nickname}</Ststrong>
                                 <Stspan>{item.comment}</Stspan>
                                 <Button2 onClick={() => onDeleteButton(item.commentid)}>삭제하기</Button2>
                             </StCommentList>
                         )
                     }
-
                     )
                 }
-            </StCommentListBox>
+            </StCommentListBox> */}
         </>
     )
 }

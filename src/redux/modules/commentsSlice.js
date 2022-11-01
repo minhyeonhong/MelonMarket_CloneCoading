@@ -19,9 +19,10 @@ const SERVICE_URL = params.key
 export const __addComment = createAsyncThunk(
     "comments/addcomment",
     async (payload, thunkAPI) => {
+
         try {
             commentApis.commentAddAX(payload).then((response) => {
-                //   return thunkAPI.fulfillWithValue(response.data.data);        
+                return thunkAPI.fulfillWithValue(payload.comment);
             })
 
         } catch (error) {

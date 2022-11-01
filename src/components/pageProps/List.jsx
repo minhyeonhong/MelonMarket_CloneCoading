@@ -4,8 +4,10 @@ import axios from "axios"; // axios import 합니다.
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { __getContent } from "../../redux/modules/contentsSlice"
 import { useSelector } from 'react-redux';
+import { __getContent } from "../../redux/modules/contentsSlice"
+
+
 
 const List = () => {
 
@@ -13,12 +15,15 @@ const List = () => {
     const navigate = useNavigate();
     const contents = useSelector((state) => state.contentsSlice.contents);
     // const contents = useSelector((state) => state.contents.contents);
-    console.log("스토어에서 가져온 contents", contents);
+
 
     useEffect(() => {
         dispatch(__getContent());
     }, []);
 
+    const moveToDetailPage = (id) => {
+        navigate(`/detail/${id}`)
+    }
 
     return (
         <StHomeHotContent>
@@ -33,7 +38,11 @@ const List = () => {
                                     return (
                                         <StCardTop key={item.postId}>
                                             <StEachCard>
-                                                <StCardPhoto src=
+                                                <StCardPhoto
+                                                    onClick={() => {
+                                                        moveToDetailPage(item.postId)
+                                                    }}
+                                                    src=
                                                     {item.images.length > 0 ?
                                                         item.images[0].image : ""} />
 
@@ -94,6 +103,7 @@ text-decoration: none;
 const StCardPhoto = styled.img`
 width: 220px;
 height: 220px;
+border-radius: 10px;
 //여기에 사진 들어감
 `;
 const StCardDesc = styled.div`
