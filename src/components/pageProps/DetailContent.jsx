@@ -85,8 +85,8 @@ const StPhotoContainer = styled.section`
 
 const StPhoto = styled.img`
 /* 크기조절 */
-    width: 220px;
-    height: 220px;
+    width: 700px;
+    height: 500px;
     margin: auto;
     text-align: center;
     /* left: -9999px;
