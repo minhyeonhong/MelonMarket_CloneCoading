@@ -40,9 +40,10 @@ const StLayoutDiv = styled.div`
   /* max-width: 1200px;
   min-width: 800px;
   margin: 0 auto; */
-  width: 100%;
+     width: 100%;
     display:flex;
     align-items : center;
     flex-direction : column;
+    height: 1700px;
 
 `;

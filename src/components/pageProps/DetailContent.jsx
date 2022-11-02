@@ -39,7 +39,7 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
                             <div style={{ fontSize: "10px", marginRight: "10px" }}>{content.createdAt}</div>
                         </StAuthorLeft>
 
-                        <StAuthorRight>매너온도</StAuthorRight>
+                        <StAuthorRight><strong>매너온도</strong></StAuthorRight>
                     </StAuthorDivide>
                 </StAuthorWrap>
             </StAuthorContainer>
@@ -50,34 +50,36 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
                 {
                     getCookie("nickname") === content.accountName &&
                     <div>
-                        <StModifyButton onClick={() => { deleteHandler(paramId) }}>삭제하기</StModifyButton>
-                        <StModifyButton style={{ backgroundColor: "green" }} onClick={() => { editHandler() }}>수정하기</StModifyButton>
+                        <StModifyButton style={{ color: "red" }} onClick={() => { deleteHandler(paramId) }}>게시글 삭제</StModifyButton>
+                        <StModifyButton style={{ backgroundColor: "#5af45a", marginLeft: "20px", color: "white" }} onClick={() => { editHandler() }}>게시글 수정</StModifyButton>
                     </div>
                 }
 
-            </StContentContainer>
+            </StContentContainer >
             {/* 댓글 컴포넌츠 호출 */}
             {
                 comments !== undefined &&
                 <Comment reply={comments}></Comment>
             }
 
-        </div>
+        </div >
     );
 };
 
 export default DetailContent;
 
 const StModifyButton = styled.button`
-border: 2px solid red;
+
 font-weight: 700;
 width: 100px;
 height: 50px;
+border-radius: 5px;
+border: 0.5px solid gray;
 `;
 
 const StPhotoContainer = styled.section`
     /* position: relative; */
-    height: 500px;
+    height: 550px;
     width: 729px;
     margin: 0 auto;
     /* border: 3px solid black; */
@@ -135,7 +137,7 @@ const StAuthorLeft = styled.div`
 `;
 
 const StContentContainer = styled.section`
-padding: 32px 0;
+    padding: 32px 0;
     width: 677px;
     margin: 0 auto;
     border-bottom: 1px solid #E9ECEF;

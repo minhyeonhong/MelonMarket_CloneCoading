@@ -86,7 +86,7 @@ const StContainer = styled.div`
     -webkit-box-pack: center;
     justify-content: center;
     background: rgb(255, 255, 255);
-    
+    height: 100%;
 `;
 const StWrap = styled.div`
 width: 1024px;
