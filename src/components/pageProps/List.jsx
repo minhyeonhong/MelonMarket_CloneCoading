@@ -16,6 +16,7 @@ const List = () => {
     const contents = useSelector((state) => state.contentsSlice.contents);
     // const contents = useSelector((state) => state.contents.contents);
 
+    console.log(contents);
 
     useEffect(() => {
         dispatch(__getContent());
@@ -51,6 +52,7 @@ const List = () => {
                                             <StCardDesc>
                                                 <StCardTitle>{item.title}</StCardTitle>
                                                 <StCardPrice>{item.price}원</StCardPrice>
+                                                <StCardRegion>{item.accoountName}</StCardRegion>
                                                 <StCardRegion>{item.place}</StCardRegion>
                                             </StCardDesc>
                                         </StCardTop>
