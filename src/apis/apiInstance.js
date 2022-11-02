@@ -69,7 +69,7 @@ export const contentsApis = {
     deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
 
     //컨텐츠 수정
-    updateContentAX: (contentInfo) => hInstance.post(`/api/posts/${contentInfo}`),
+    updateContentAX: (obj) => hInstance.post(`/api/posts/${obj.id}`, obj.contentInfo),
 
     //마이페이지
     mypageAX: () => hInstance.get(`/api/myPage`),

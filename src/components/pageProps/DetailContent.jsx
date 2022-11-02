@@ -7,14 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getContentDetail, __deleteContent, __editContent } from "../../redux/modules/contentsSlice"
 
 import styled from "styled-components";
-const DetailContent = ({ content, comments, editHandler }) => {
+const DetailContent = ({ content, comments, editHandler, paramId }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
 
     //삭제 기능
     const deleteHandler = (id) => {
         dispatch(__deleteContent(id))
     }
+
+    console.log("content:", content)
 
     return (
         <div>
@@ -49,7 +50,7 @@ const DetailContent = ({ content, comments, editHandler }) => {
                 {
                     getCookie("nickname") === content.accountName &&
                     <div>
-                        <StModifyButton onClick={() => { deleteHandler(id) }}>삭제하기</StModifyButton>
+                        <StModifyButton onClick={() => { deleteHandler(paramId) }}>삭제하기</StModifyButton>
                         <StModifyButton style={{ backgroundColor: "green" }} onClick={() => { editHandler() }}>수정하기</StModifyButton>
                     </div>
                 }
