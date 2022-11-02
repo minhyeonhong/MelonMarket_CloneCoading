@@ -44,7 +44,7 @@ const List = () => {
                                                     }}
                                                     src=
                                                     {item.images.length > 0 ?
-                                                        item.images[0].image : ""} />
+                                                        item.images[0].image : process.env.PUBLIC_URL + "/img/noimg.jpg"} />
 
                                                 {/* <StCardPhoto src={item.images[0].image} /> */}
                                             </StEachCard>
