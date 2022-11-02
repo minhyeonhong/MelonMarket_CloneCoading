@@ -111,7 +111,7 @@ function Header() {
 
                 {getCookie("Access_Token") ?
                     <div>
-                        <span style={{ marginLeft: "10px", color: "white", fontSize: "17px", border: "1px solid green", borderRadius: "50px", backgroundColor: "orange", padding: "13px", fontFamily: "Arial-bold" }}
+                        <span style={{ color: "white", fontSize: "17px", border: "1px solid green", borderRadius: "50px", backgroundColor: "orange", padding: "13px", fontFamily: "Arial-bold" }}
                             onClick={((event) => {
                                 moveToMyPage(event)
                             })

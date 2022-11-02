@@ -10,8 +10,10 @@ import styled from "styled-components";
 
 const Comment = ({ reply }) => {
 
-    const contentId = useParams()
+    const Id = useParams();
 
+    const contentId = useParams()
+    console.log(reply);
     const dispatch = useDispatch("");
     const [comment, setComment] = useState({
         comment: "",
@@ -40,6 +42,7 @@ const Comment = ({ reply }) => {
         setComment({
             comment: "",
         });
+        // window.location.replace(`/detail/${Id}`)
     };
 
 
@@ -47,6 +50,7 @@ const Comment = ({ reply }) => {
     const onDeleteButton = (id) => {
         dispatch(__deleteComment(id))
         // alert("삭제하시겠습니까?")
+        // window.location.replace(`/detail/${Id}`)
     };
 
     //디스패치-명령 // 리스트로 
@@ -66,7 +70,7 @@ const Comment = ({ reply }) => {
                     onChange={onChangeInputHandler}
                     maxLength={100}
                 />
-                <Button onClick={onAddCommentButtonHandler}>
+                <Button style={{ height: "47px" }} onClick={onAddCommentButtonHandler}>
                     추가하기
                 </Button>
             </StCommentBox>
@@ -77,12 +81,13 @@ const Comment = ({ reply }) => {
                     reply.map((item) => {
 
                         return (
-
                             <StCommentList key={item.commentId}>
-                                <Ststrong>{item.accountName}</Ststrong>
+                                <div style={{ color: "green", width: "90px" }}>({item.createdAt})</div>
+                                <StStrong>{item.accountName} :</StStrong>
                                 <StSpan>{item.comment}</StSpan>
                                 <Button2 onClick={() => onDeleteButton(item.commentId)}>삭제하기</Button2>
                             </StCommentList>
+
                         )
                     }
                     )
@@ -97,6 +102,7 @@ export default Comment;
 const StCommentBox = styled.div`
   display: flex;
   width: 600px;
+  height: 250px;
   margin: 0 auto;
   margin-top:15px;
 `;
@@ -137,8 +143,8 @@ const StCommentList = styled.div`
   padding:20px 0;
 `;
 
-const Ststrong = styled.strong`
-  width:87px;
+const StStrong = styled.strong`
+  width:100px;
   padding:8px;
   color:black;
   display:block;
