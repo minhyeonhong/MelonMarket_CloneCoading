@@ -52,7 +52,7 @@ const Mypage = () => {
                                     return (
                                         <StEachContent key={val.postId} onClick={() => moveToDetailPage(val.postId)}>
                                             <div>
-                                                <img style={{ width: "220px", height: "220px" }} src={val.images.length < 1 ? "" : val.images[0].image} />
+                                                <img style={{ width: "220px", height: "220px" }} src={val.images.length < 1 ? process.env.PUBLIC_URL + "/img/noimg.jpg" : val.images[0].image} />
                                             </div>
                                             <div>
                                                 <div><strong>상품제목:</strong>{val.title}</div>

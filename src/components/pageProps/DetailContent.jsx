@@ -22,11 +22,14 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
             <StPhotoContainer>
                 {
                     content.images !== undefined &&
-                    content.images.map((item) => {
-                        return (
-                            <StPhoto src={item.image} key={item.imageId} />
-                        )
-                    })
+                        content.images.length > 0 ?
+                        content.images.map((item) => {
+                            return (
+                                <StPhoto src={item.image} key={item.imageId} />
+                            )
+                        })
+                        :
+                        <StPhoto src={process.env.PUBLIC_URL + "/img/noimg.jpg"} />
                 }
             </StPhotoContainer>
             <StAuthorContainer>
