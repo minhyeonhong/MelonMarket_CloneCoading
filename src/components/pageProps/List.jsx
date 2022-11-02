@@ -16,6 +16,7 @@ const List = () => {
     const contents = useSelector((state) => state.contentsSlice.contents);
     // const contents = useSelector((state) => state.contents.contents);
 
+    console.log(contents);
 
     useEffect(() => {
         dispatch(__getContent());
@@ -44,13 +45,14 @@ const List = () => {
                                                     }}
                                                     src=
                                                     {item.images.length > 0 ?
-                                                        item.images[0].image : ""} />
+                                                        item.images[0].image : process.env.PUBLIC_URL + "/img/noimg.jpg"} />
 
                                                 {/* <StCardPhoto src={item.images[0].image} /> */}
                                             </StEachCard>
                                             <StCardDesc>
                                                 <StCardTitle>{item.title}</StCardTitle>
                                                 <StCardPrice>{item.price}원</StCardPrice>
+                                                <StCardRegion>{item.accoountName}</StCardRegion>
                                                 <StCardRegion>{item.place}</StCardRegion>
                                             </StCardDesc>
                                         </StCardTop>
