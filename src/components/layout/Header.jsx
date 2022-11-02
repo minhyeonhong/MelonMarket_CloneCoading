@@ -87,11 +87,11 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            {/* <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5> */}
+            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
             <StNavWrap>
                 <StSearchWrap>
-                    <input type="text" />
-                    <StNavItem>검색</StNavItem>
+                    <input type="text" style={{ width: "200px", height: "30px" }} />
+                    <StNavItem style={{ backgroundColor: "rgb(255, 80, 88)" }}>상품검색</StNavItem>
                 </StSearchWrap>
                 <StNavItem2 onClick={(event) => {
                     getCookie("Access_Token") ?

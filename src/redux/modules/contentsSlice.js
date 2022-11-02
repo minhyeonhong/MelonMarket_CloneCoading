@@ -80,17 +80,25 @@ export const __getContentDetail = createAsyncThunk(
     }
 )
 //게시글 수정
-export const __editContent = createAsyncThunk(
-    "contents/__editContent",
+export const __updataContent = createAsyncThunk(
+    "contents/__updataContent",
     async (payload, thunkAPI) => {
+
+        for (let key of payload.contentInfo.keys()) {
+            console.log(key, ":", payload.contentInfo.get(key));
+        }
+
         try {
             const res = await contentsApis.updateContentAX(payload)
-            const obj = {
-                upContentId: payload,
-                data: res.data,
-            }
-            return thunkAPI.fulfillWithValue(obj);
+
+            console.log("__updataContent res", res)
+            // const obj = {
+            //     upContentId: payload,
+            //     data: res.data,
+            // }
+            // return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
+            console.log("__updataContent error", error)
             return thunkAPI.rejectWithValue(error);
         }
     }
@@ -210,15 +218,10 @@ export const contentsSlice = createSlice({
             state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
         },
         //게시글 수정
-        [__editContent.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-        },
-        [__editContent.fulfilled]: (state, action) => {
-            state.isLoading = false; // 
+        [__updataContent.fulfilled]: (state, action) => {
             state.contents = action.payload;
         },
-        [__editContent.rejected]: (state, action) => {
-            state.isLoading = false; // 
+        [__updataContent.rejected]: (state, action) => {
             state.error = action.payload; // 
         },
         //게시글 삭제

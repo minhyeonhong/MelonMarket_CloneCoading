@@ -1,54 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { getCookie } from '../../cookie/cookie';
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __getContentDetail, __deleteContent, __editContent } from "../../redux/modules/contentsSlice"
+import { __updataContent } from "../../redux/modules/contentsSlice"
 
 import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 
-const DetailContentUpdate = ({ content }) => {
+import { BsFillCameraFill } from "react-icons/bs"
+
+import useImgUpload from "../../hooks/useImgUpload";
+
+const DetailContentUpdate = ({ content, paramId }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
+    //이미지 업로드 인풋돔 선택 훅
+    const imgRef = useRef();
+    //이미지 업로드 훅
+    const [files, fileUrls, uploadHandle] = useImgUpload(5, true, 0.3, 1000);
 
     const navigate = useNavigate();
 
-    //삭제 기능
-    const deleteHandler = (id) => {
-        dispatch(__deleteContent(id))
-    }
 
-    const [edit, setEdit] = useState(false);
-    //수정 기능
-    const editHandler = () => {
-        setEdit(true);
-        console.log(edit)
-        // dispatch(__editContent(id))
-    }
-
-
+    //수정 내용
     const [upInput, setUpInput, upInputHandle] = useInput({
         title: content.title,
         content: content.content,
         price: content.price,
         place: content.place
     });
+    //기존 프리뷰 지울 state
+    const [delImg, setDelImg] = useState([]);
 
-    const contentUpdate = () => {
-        console.log("upInput", upInput);
+    //submit
+    const updateSubmit = () => {
+        //request로 날릴 폼데이터
+        const formData = new FormData();
+
+        //폼 데이터에 파일 담기
+        if (files.length > 0) {
+            files.forEach((file) => {
+                formData.append("images", file);
+            })
+        } else {
+            formData.append("images", null);
+        }
+
+
+        if (upInput.title === "") {
+            alert("제목 써줘")
+            return
+        }
+        if (upInput.content === "") {
+            alert("내용 써줘")
+            return
+        }
+        if (upInput.price === "") {
+            alert("가격 써줘")
+            return
+        }
+
+        //폼 데이터에 글작성 데이터 넣기
+        formData.append("post", JSON.stringify(upInput));
+
+        formData.append("imageId", delImg);
+
+
+        const obj = {
+            id: paramId,
+            contentInfo: formData
+        }
+        //Api 날리기
+        dispatch(__updataContent(obj));
     }
+
+    const delPreview = (imgId) => {
+        //삭제할 이미지 번호 담기
+        setDelImg((e) => [...e, imgId]);
+
+    }
+    useEffect(() => {
+        console.log(delImg)
+    }, [delImg])
     return (
         <div>
             <StPhotoContainer>
-                {
-                    content.images !== undefined &&
-                    content.images.map((item) => {
-                        return (
-                            <StPhoto src={item.image} key={item.imageId} />
-                        )
-                    })
-                }
+                <StImgsWrap>
+                    <label htmlFor="imgFile">
+                        <input
+                            type="file"
+                            style={{ display: 'none' }}
+                            accept="image/*"
+                            id="imgFile"
+                            name="imgFile"
+                            multiple
+                            onChange={uploadHandle}
+                            ref={imgRef}
+                        />
+                        <StImgUploadBtn type='button' onClick={() => { imgRef.current.click() }}><BsFillCameraFill style={{ width: "100px", height: "100px" }} /></StImgUploadBtn>
+                    </label>
+                    <StContentPreviewsWrap>
+                        {//기존 이미지 뿌려줄
+                            content.images !== undefined &&
+                            content.images.map((item) => {
+                                return (
+                                    <StContentPreviews key={item.imageId} isView={delImg.indexOf(item.imageId) > -1 ? "none" : "block"}>
+                                        <StPhoto src={item.image} />
+                                        <button onClick={() => { delPreview(item.imageId); }}>삭제</button>
+                                    </StContentPreviews>
+                                )
+                            })
+                        }
+                    </StContentPreviewsWrap>
+                    <div className="preview">
+                        {/*previews map쓸곳*/
+                            fileUrls.map((val, i) => {
+                                return (
+                                    <StPreviewImg src={val} alt="game image" key={i} />
+                                )
+                            })
+                        }
+                    </div>
+                </StImgsWrap>
+
             </StPhotoContainer>
             <StAuthorContainer>
                 <StAuthorWrap>
@@ -86,8 +160,8 @@ const DetailContentUpdate = ({ content }) => {
                 {
                     getCookie("nickname") === content.accountName &&
                     <div>
-                        <StModifyButton onClick={() => { window.location.replace(`/detail/${id}`) }}>이전으로</StModifyButton>
-                        <StModifyButton style={{ backgroundColor: "green" }} onClick={contentUpdate}>수정하기</StModifyButton>
+                        <StModifyButton onClick={() => { window.location.replace(`/detail/${paramId}`) }}>이전으로</StModifyButton>
+                        <StModifyButton style={{ backgroundColor: "green" }} onClick={updateSubmit}>수정하기</StModifyButton>
                     </div>
                 }
 
@@ -98,6 +172,40 @@ const DetailContentUpdate = ({ content }) => {
 };
 
 export default DetailContentUpdate;
+
+const StContentPreviewsWrap = styled.div`
+    display:flex;
+    flex-direction:row;
+    gap : 5px;
+`
+
+const StContentPreviews = styled.div`
+    display : ${(props) => props.isView};
+`
+
+const StImgUploadBtn = styled.button`
+  border : none;
+`
+
+const StImgsWrap = styled.div`
+  width : 100%;
+  display :flex;
+  flex-direction : column;
+  justify-content: center;
+  align-items : center;
+  .preview {
+    text-align : center;
+    display :flex;
+    flex-direction : row;
+    align-items : center;
+    gap : 10px;
+  }
+`
+const StPreviewImg = styled.img`
+  width : 220px;
+  height :220px;
+  border-radius : 1rem;
+`
 
 const StModifyButton = styled.button`
 border: 2px solid red;
@@ -120,6 +228,8 @@ const StPhoto = styled.img`
     height: 220px;
     margin: auto;
     text-align: center;
+    border-radius : 1rem;
+
     /* left: -9999px;
     top: -9999px; */
     /* border: 3px solid red; */

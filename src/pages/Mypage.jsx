@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/Layout';
 import styled from "styled-components";
-
 import { __mypage, __getContentDetail } from "../redux/modules/contentsSlice"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import profile from "../assets/밥먹는중2.jpeg"
+import profile2 from "../assets/핫.jpeg"
 
 const Mypage = () => {
     const dispatch = useDispatch();
@@ -34,10 +35,9 @@ const Mypage = () => {
             <StContainer>
                 <StWrap>
                     <StProfileContainer>
-                        <StProfilePhoto>
-                            여기 내 프로필 사진 들어갈거임
-                        </StProfilePhoto>
-                        닉네임 : {mypage !== undefined && mypage.accountName}
+                        <StProfilePhoto src={profile2} style={{ textAlign: "center" }}>
+                        </StProfilePhoto  >
+                        <h2 style={{ marginTop: "140px", color: "#FA6615", margin: "auto" }}>{mypage !== undefined && mypage.accountName}의 상점</h2>
                     </StProfileContainer>
 
                     <StToggleMenus>
@@ -52,17 +52,17 @@ const Mypage = () => {
                                     return (
                                         <StEachContent key={val.postId} onClick={() => moveToDetailPage(val.postId)}>
                                             <div>
-                                                <img style={{ width: "22px0", height: "220px" }} src={val.images.length < 1 ? "" : val.images[0].image} />
+                                                <img style={{ width: "220px", height: "220px" }} src={val.images.length < 1 ? "" : val.images[0].image} />
                                             </div>
                                             <div>
-                                                <div>title:{val.title}</div>
-                                                <div>price:{val.price} | {val.modifiedAt} </div>
+                                                <div><strong>상품제목:</strong>{val.title}</div>
+                                                <div><strong>가격:</strong>{val.price}원</div>
                                             </div>
                                             <div>
-                                                place:{val.place}
+                                                <strong>위치:</strong>{val.place}<br />
+                                                <strong style={{ color: "green" }}>{val.modifiedAt}</strong>
                                             </div>
                                         </StEachContent>
-
                                     )
                                 })
 
@@ -96,15 +96,16 @@ width: 1024px;
 const StProfileContainer = styled.div`
         display: flex;
     width: 100%;
-    border: 3px solid red;
+    border: 1px solid rgb(238, 238, 238);
 `;
-const StProfilePhoto = styled.div`
+const StProfilePhoto = styled.img`
     flex-shrink: 0;
     width: 310px;
     height: 310px;
     /* position: relative; */
     color: black;
-    border: 3px solid black;
+    border: 1px solid rgb(238, 238, 238);
+    text-align: center;
 `;
 const StProfileText = styled.div`
     flex: 1 0 0%;
@@ -113,28 +114,28 @@ const StProfileText = styled.div`
     border-right: 1px solid rgb(238, 238, 238);
     border-bottom: 1px solid rgb(238, 238, 238);
     display: flex;
-    height: 700px;
+    height: 400px;
     flex-direction: column;
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
 `;
 
 const StToggleMenus = styled.div`
     display: flex;
     height: 50px;
-    border: 5px solid green;
+    border: 1px solid rgb(238, 238, 238);
 `;
 const StToggleMenu = styled.a`
-flex: 1 1 0%;
+    flex: 1 1 0%;
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
     display: flex;
-    border-top: 1px solid rgb(33, 33, 33);
-    border-right: 1px solid rgb(33, 33, 33);
-    border-bottom: 1px solid rgb(255, 255, 255);
+    border-top: 1px solid rgb(255, 255, 255);
+    /* border-right: 1px solid rgb(33, 33, 33); */
+    border-bottom: 1px solid rgb(33, 33, 33);
     background: rgb(255, 255, 255);
-    color: rgb(33, 33, 33);
+    border: 1px solid rgb(255, 255, 255);
     font-weight: 600;
 `;
 
@@ -144,14 +145,16 @@ const StEachContainer = styled.div`
 `;
 
 const StEachContent = styled.div`
-
-width: 200px;
+    padding: 30px;
+    width: 220px;
     margin-left:0px;
-    height: 300px;
+    height: 330px;
+
     margin-right: 11px;
     margin-bottom: 11px;
     margin: auto;
-    border: 3px solid pink;
+    /* border: 3px solid pink; */
+    
     `;
 
 export default Mypage

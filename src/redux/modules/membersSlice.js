@@ -31,7 +31,6 @@ export const __logout = createAsyncThunk(
     "members/__logout",
     async (payload, thunkAPI) => {
         try {
-
             loginApis.logoutAX()
                 .then((res) => {
                     if (res.data.statusCode === 200) {
@@ -42,7 +41,13 @@ export const __logout = createAsyncThunk(
                     }
                 })
                 .catch((error) => {
-                    console.log(error)
+                    if (error.response.data.statusCode === 400) {
+                        delCookie("Access_Token")
+                        delCookie("nickname")
+                        alert("로그아웃 되었습니다")
+                        window.location.replace("/")
+                    }
+
                 })
 
         } catch (error) {

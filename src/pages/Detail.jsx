@@ -23,13 +23,6 @@ const Detail = () => {
 
 
     const [edit, setEdit] = useState(false);
-    const [target, setTarget] = useState();
-    const [revise, setRevise] = useState();
-
-    //삭제 기능
-    const deleteHandler = (id) => {
-        dispatch(__deleteContent(id))
-    }
 
     //수정 기능
     const editHandler = () => {
@@ -38,28 +31,15 @@ const Detail = () => {
         // dispatch(__editContent(id))
     }
 
-    const onContentUpdate = (id) => {
-        // dispatch(__editContent({ id: id, target: target }));
-        setEdit(false);
-    };
-
-    const onChangeHandler = (event) => {
-        const { name, value } = event.target;
-        setRevise({ ...revise, [name]: value });
-    };
-    const btnCancle = () => {
-        setEdit(false);
-    };
-
     return (
 
         <Layout>
             {edit === false ?
                 //디테일컴포넌트
-                < DetailContent content={content} comments={comments} edit={edit} editHandler={editHandler} />
+                < DetailContent content={content} comments={comments} edit={edit} paramId={id} editHandler={editHandler} />
                 :
                 //수정컴포넌트
-                <DetailContentUpdate content={content} editHandler={editHandler} />
+                <DetailContentUpdate content={content} paramId={id} editHandler={editHandler} />
             }
 
         </Layout >
