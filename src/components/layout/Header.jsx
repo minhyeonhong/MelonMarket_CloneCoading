@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { IoMdHome } from "react-icons/io";
 import melonlogo from "../../assets/melonlogo.png"
 import { useSelector, useDispatch } from "react-redux";
-import { modalTogle, __login, __join, __logout } from "../../redux/modules/membersSlice"
+import { modalTogle, __logout } from "../../redux/modules/membersSlice"
 import { cntWriteModalTogle } from "../../redux/modules/contentsSlice"
-import { getCookie, setCookie, delCookie } from '../../cookie/cookie';
-import { useEffect } from 'react';
+import { getCookie } from '../../cookie/cookie';
 import '../../assets/font/Dongle-Regular.ttf'
 import '../../assets/font/GowunBatang-Regular.ttf'
 import '../../assets/font/GowunBatang-Bold.ttf'
@@ -48,8 +46,6 @@ function Header() {
     }
 
 
-    const nickname = getCookie("nickname");
-
     //모달 상태값으로 띄우기 위해
     const { loginModal } = useSelector(state => state.membersSlice);
     const { cntWriteModal } = useSelector(state => state.contentsSlice);
@@ -87,7 +83,7 @@ function Header() {
 
             </StHomeBtn>
             {/* 현재 날씨 뿌려주기 */}
-            <h5 style={{ margin: "auto", fontSize: "20px", width: "200px", color: "#999" }}>현재날씨:{weather?.main.temp}°C</h5>
+            <h5 style={{ margin: "auto", marginLeft: "9px", fontSize: "20px", width: "200px", color: "red" }}>현재날씨:{weather?.main.temp}°C</h5>
             <StNavWrap>
                 <StSearchWrap>
                     <input type="text" style={{ width: "200px", height: "30px" }} />

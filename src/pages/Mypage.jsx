@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/Layout';
 import styled from "styled-components";
-import { __mypage, __getContentDetail } from "../redux/modules/contentsSlice"
+import { __mypage } from "../redux/modules/contentsSlice"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import profile from "../assets/밥먹는중2.jpeg"
 import profile2 from "../assets/핫.jpeg"
 
 const Mypage = () => {
@@ -14,11 +13,7 @@ const Mypage = () => {
 
     useEffect(() => {
         dispatch(__mypage());
-    }, [])
-
-    useEffect(() => {
-        console.log("useEffect mypage", mypage);
-    }, [mypage])
+    }, [dispatch])
 
     const [swap, setSwap] = useState(1);
 

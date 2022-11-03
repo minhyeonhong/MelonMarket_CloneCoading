@@ -1,8 +1,6 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-//import { flushSync } from "react-dom";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { contentsApis, commentApis } from "../../apis/apiInstance"
-import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
-import { useNavigate } from "react-router-dom";
+
 
 
 //게시글 작성
@@ -83,22 +81,22 @@ export const __getContentDetail = createAsyncThunk(
 export const __updataContent = createAsyncThunk(
     "contents/__updataContent",
     async (payload, thunkAPI) => {
-
-        for (let key of payload.contentInfo.keys()) {
-            console.log(key, ":", payload.contentInfo.get(key));
-        }
-
         try {
-            const res = await contentsApis.updateContentAX(payload)
 
-            console.log("__updataContent res", res)
-            // const obj = {
-            //     upContentId: payload,
-            //     data: res.data,
-            // }
+            await contentsApis.updateContentAX(payload)
+                .then((res) => {
+                    if (res.data.statusCode === 200) {
+                        alert("글수정 성공");
+                        window.location.replace(`/detail/${payload.id}`);
+                    }
+
+                })
+                .catch((error) => {
+                    console.log("error", error);
+                })
+
             // return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
-            console.log("__updataContent error", error)
             return thunkAPI.rejectWithValue(error);
         }
     }
@@ -188,7 +186,6 @@ export const contentsSlice = createSlice({
             }
         },
         [__insertContent.rejected]: (state, action) => {
-            console.log("__insertContent error", action.payload)
             state.error = action.payload;
         },
         //__게시글 조회        
