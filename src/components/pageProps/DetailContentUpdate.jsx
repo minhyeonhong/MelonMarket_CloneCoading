@@ -4,6 +4,7 @@ import { getCookie } from '../../cookie/cookie';
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __updataContent } from "../../redux/modules/contentsSlice"
+import Button from '../elements/Button';
 
 import styled from "styled-components";
 import useInput from "../../hooks/useInput";
@@ -106,7 +107,7 @@ const DetailContentUpdate = ({ content, paramId }) => {
                                 return (
                                     <StContentPreviews key={item.imageId} isView={delImg.indexOf(item.imageId) > -1 ? "none" : "block"}>
                                         <StPhoto src={item.image} />
-                                        <button onClick={() => { delPreview(item.imageId); }}>삭제</button>
+                                        <Button style={{ width: "100px", marginLeft: "20px", borderRadius: "10px" }} onClick={() => { delPreview(item.imageId); }}>삭제</Button>
                                     </StContentPreviews>
                                 )
                             })
@@ -130,7 +131,7 @@ const DetailContentUpdate = ({ content, paramId }) => {
                     <StAuthorDivide>
                         <StAuthorLeft>
                             <strong>{content.accountName}</strong>
-                            선택 기본으로 원래꺼 선택돼 있음
+
                             <div style={{ fontSize: "15px" }}>
                                 <select name="place" onChange={upInputHandle}>
                                     <option value="서울" selected={content.place === "서울" && "selected"}>서울</option>
@@ -145,23 +146,28 @@ const DetailContentUpdate = ({ content, paramId }) => {
                             <div style={{ fontSize: "10px", marginRight: "10px" }}>{content.createdAt}</div>
                         </StAuthorLeft>
 
-                        <StAuthorRight>매너온도</StAuthorRight>
+                        <StAuthorRight><strong>매너온도</strong></StAuthorRight>
                     </StAuthorDivide>
                 </StAuthorWrap>
             </StAuthorContainer>
             <StContentContainer>
                 <StContentTitle>
-                    타이틀<input type='text' name='title' value={upInput.title || ""} onChange={upInputHandle} />
+                    제목 : <input style={{ width: "300px", marginTop: "18px", border: "1px solid orange", borderRadius: "15px", textAlign: "center" }} type='text' name='title' value={upInput.title || ""} placeholder="변경하실 제목을 입력하세요" onChange={upInputHandle} />
                 </StContentTitle>
-                <StContentPrice>금액 : <input type='text' name='price' value={upInput.price || ""} onChange={upInputHandle} />원</StContentPrice>
-                <StContentInfo>
-                    내용<textarea type='text' name='content' value={upInput.content || ""} onChange={upInputHandle} />
+                <StContentPrice>금액 : <input style={{ width: "300px", border: "none", marginTop: "18px", border: "1px solid orange", borderRadius: "15px", textAlign: "center" }} type='text' placeholder="변경하실 금액을 입력하세요" name='price' value={upInput.price || ""} onChange={upInputHandle} /></StContentPrice>
+                <StContentInfo style={{ display: "flex" }}>
+                    <div style={{ textAlign: "center", marginTop: "18px" }}>
+                        <strong style={{ marginRight: "10px", marginBottom: "15px" }}>
+                            내용 :
+                        </strong>
+                    </div>
+                    <textarea style={{ width: "300px", border: "1px solid orange", borderRadius: "15px", marginTop: "10px", textAlign: "center" }} placeholder="변경하실 내용을 입력하세요" type='text' name='content' value={upInput.content || ""} onChange={upInputHandle} />
                 </StContentInfo>
                 {
                     getCookie("nickname") === content.accountName &&
                     <div>
-                        <StModifyButton onClick={() => { window.location.replace(`/detail/${paramId}`) }}>이전으로</StModifyButton>
-                        <StModifyButton style={{ backgroundColor: "green" }} onClick={updateSubmit}>수정하기</StModifyButton>
+                        <StModifyButton style={{ color: "red" }} onClick={() => { window.location.replace(`/detail/${paramId}`) }}>이전으로</StModifyButton>
+                        <StModifyButton style={{ backgroundColor: "#5af45a", marginLeft: "20px", color: "white" }} onClick={updateSubmit}>수정하기</StModifyButton>
                     </div>
                 }
 
@@ -208,7 +214,11 @@ const StPreviewImg = styled.img`
 `
 
 const StModifyButton = styled.button`
-border: 2px solid red;
+font-weight: 700;
+width: 100px;
+height: 50px;
+border-radius: 5px;
+border: 0.5px solid gray;
 font-weight: 700;
 width: 100px;
 height: 50px;
@@ -276,8 +286,9 @@ const StAuthorLeft = styled.div`
 `;
 
 const StContentContainer = styled.section`
-padding: 32px 0;
+    padding: 32px 0;
     width: 677px;
+    height: 630px;
     margin: 0 auto;
     border-bottom: 1px solid #E9ECEF;
     /* border: 3px solid crimson; */
@@ -299,9 +310,11 @@ font-size: 18px;
 `;
 
 const StContentInfo = styled.p`
-font-size: 17px;
+  
+    font-size: 17px;
     line-height: 1.6;
     letter-spacing: -0.6px;
     margin: 16px 0;
     word-break: break-all;
+
 `;

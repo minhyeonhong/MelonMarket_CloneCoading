@@ -18,18 +18,15 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
     console.log("content:", content)
 
     return (
-        <div>
+        <div style={{ height: "1600px" }}>
             <StPhotoContainer>
                 {
                     content.images !== undefined &&
-                        content.images.length > 0 ?
-                        content.images.map((item) => {
-                            return (
-                                <StPhoto src={item.image} key={item.imageId} />
-                            )
-                        })
-                        :
-                        <StPhoto src={process.env.PUBLIC_URL + "/img/noimg.jpg"} />
+                    content.images.map((item) => {
+                        return (
+                            <StPhoto src={item.image} key={item.imageId} />
+                        )
+                    })
                 }
             </StPhotoContainer>
             <StAuthorContainer>
@@ -64,7 +61,6 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
                 comments !== undefined &&
                 <Comment reply={comments}></Comment>
             }
-
         </div >
     );
 };
@@ -82,7 +78,7 @@ border: 0.5px solid gray;
 
 const StPhotoContainer = styled.section`
     /* position: relative; */
-    height: 550px;
+    height: 600px;
     width: 729px;
     margin: 0 auto;
     /* border: 3px solid black; */
@@ -91,7 +87,7 @@ const StPhotoContainer = styled.section`
 const StPhoto = styled.img`
 /* 크기조절 */
     width: 700px;
-    height: 500px;
+    height: 600px;
     margin: auto;
     text-align: center;
     /* left: -9999px;
