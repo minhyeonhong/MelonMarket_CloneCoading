@@ -25,7 +25,6 @@ const Layout = (props) => {
                 {cntWriteModal && <CntWriteModal />}
                 {props.children}
                 <Footer />
-
             </StLayoutDiv>
 
         </>
