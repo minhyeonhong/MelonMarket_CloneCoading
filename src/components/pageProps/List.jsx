@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import axios from "axios"; // axios import 합니다.
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -16,11 +15,9 @@ const List = () => {
     const contents = useSelector((state) => state.contentsSlice.contents);
     // const contents = useSelector((state) => state.contents.contents);
 
-    console.log(contents);
-
     useEffect(() => {
         dispatch(__getContent());
-    }, []);
+    }, [dispatch]);
 
     const moveToDetailPage = (id) => {
         navigate(`/detail/${id}`)

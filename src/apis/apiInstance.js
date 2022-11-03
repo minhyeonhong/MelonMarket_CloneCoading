@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie, delCookie } from "../cookie/cookie";
+import { getCookie } from "../cookie/cookie";
 
 
 
@@ -18,6 +18,8 @@ const hInstance = axios.create({
     },
     withCredentials: true,
 });
+
+
 
 export const loginApis = {
     //로그인

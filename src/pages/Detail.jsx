@@ -1,12 +1,9 @@
 import React from 'react'
-import Header from '../components/layout/Header'
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Layout from '../components/layout/Layout';
-import { __getContentDetail, __deleteContent, __editContent } from "../redux/modules/contentsSlice"
-import { getCookie } from '../cookie/cookie';
+import { __getContentDetail } from "../redux/modules/contentsSlice"
 
 import DetailContent from '../components/pageProps/DetailContent';
 import DetailContentUpdate from '../components/pageProps/DetailContentUpdate';
@@ -19,7 +16,7 @@ const Detail = () => {
 
     useEffect(() => {
         dispatch(__getContentDetail(id));
-    }, []);
+    }, [dispatch, id]);
 
 
     const [edit, setEdit] = useState(false);
@@ -27,8 +24,6 @@ const Detail = () => {
     //수정 기능
     const editHandler = () => {
         setEdit(true);
-        console.log(edit)
-        // dispatch(__editContent(id))
     }
 
     return (

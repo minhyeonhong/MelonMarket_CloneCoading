@@ -5,15 +5,11 @@ import { useDispatch } from "react-redux";
 import { __deleteComment, __insertComment } from "../../redux/modules/contentsSlice"
 
 
-// import { __addComment, __deleteComment } from "../redux/modules/commentsSlice"
 import styled from "styled-components";
 
 const Comment = ({ reply }) => {
 
-    const Id = useParams();
-
     const contentId = useParams()
-    console.log(reply);
     const dispatch = useDispatch("");
     const [comment, setComment] = useState({
         comment: "",
@@ -106,12 +102,6 @@ const StCommentBox = styled.div`
   margin: 0 auto;
   margin-top:15px;
 `;
-
-const StNameInput = styled.input`
-  width:100px;
-  height:40px;
-  border: 1px color red;
-`
 
 const StcommentInput = styled.input`
   width: 360px;

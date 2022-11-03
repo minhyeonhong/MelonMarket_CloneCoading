@@ -1,11 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import { flushSync } from "react-dom";
-
 import { loginApis } from "../../apis/apiInstance"
-import { setCookie, getCookie, delCookie } from "../../cookie/cookie"
+import { setCookie, delCookie } from "../../cookie/cookie"
 
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 //로그인 Thunk
 export const __login = createAsyncThunk(
@@ -74,7 +70,6 @@ export const __join = createAsyncThunk(
                         alert(error.response.data.message);
                     }
                 })
-            //console.log("response", response)
             // return thunkAPI.fulfillWithValue(response.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -95,12 +90,9 @@ export const __loginCheck = createAsyncThunk(
                 })
                 .catch((error) => {
                     if (error.response.status === 400 || '400') {
-                        console.log("중복체크 오류 메시지", error);
                         alert(error.response.data.message);
                     }
                 })
-            //console.log("response", response)
-
             // return thunkAPI.fulfillWithValue(response.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

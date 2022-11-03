@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { IoMdHome } from "react-icons/io";
 import melonlogo from "../../assets/melonlogo.png"
 import { useSelector, useDispatch } from "react-redux";
-import { modalTogle, __login, __join, __logout } from "../../redux/modules/membersSlice"
+import { modalTogle, __logout } from "../../redux/modules/membersSlice"
 import { cntWriteModalTogle } from "../../redux/modules/contentsSlice"
-import { getCookie, setCookie, delCookie } from '../../cookie/cookie';
-import { useEffect } from 'react';
+import { getCookie } from '../../cookie/cookie';
 import '../../assets/font/Dongle-Regular.ttf'
 import '../../assets/font/GowunBatang-Regular.ttf'
 import '../../assets/font/GowunBatang-Bold.ttf'
@@ -47,8 +45,6 @@ function Header() {
         navigate("/mypage")
     }
 
-
-    const nickname = getCookie("nickname");
 
     //모달 상태값으로 띄우기 위해
     const { loginModal } = useSelector(state => state.membersSlice);

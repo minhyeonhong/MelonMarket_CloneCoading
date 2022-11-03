@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { getCookie } from '../../cookie/cookie';
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { __updataContent } from "../../redux/modules/contentsSlice"
 import Button from '../elements/Button';
 
@@ -19,9 +18,6 @@ const DetailContentUpdate = ({ content, paramId }) => {
     const imgRef = useRef();
     //이미지 업로드 훅
     const [files, fileUrls, uploadHandle] = useImgUpload(5, true, 0.3, 1000);
-
-    const navigate = useNavigate();
-
 
     //수정 내용
     const [upInput, setUpInput, upInputHandle] = useInput({
@@ -80,9 +76,7 @@ const DetailContentUpdate = ({ content, paramId }) => {
         setDelImg((e) => [...e, imgId]);
 
     }
-    useEffect(() => {
-        console.log(delImg)
-    }, [delImg])
+
     return (
         <div>
             <StPhotoContainer>
@@ -154,7 +148,7 @@ const DetailContentUpdate = ({ content, paramId }) => {
                 <StContentTitle>
                     제목 : <input style={{ width: "300px", marginTop: "18px", border: "1px solid orange", borderRadius: "15px", textAlign: "center" }} type='text' name='title' value={upInput.title || ""} placeholder="변경하실 제목을 입력하세요" onChange={upInputHandle} />
                 </StContentTitle>
-                <StContentPrice>금액 : <input style={{ width: "300px", border: "none", marginTop: "18px", border: "1px solid orange", borderRadius: "15px", textAlign: "center" }} type='text' placeholder="변경하실 금액을 입력하세요" name='price' value={upInput.price || ""} onChange={upInputHandle} /></StContentPrice>
+                <StContentPrice>금액 : <input style={{ width: "300px", marginTop: "18px", border: "1px solid orange", borderRadius: "15px", textAlign: "center" }} type='text' placeholder="변경하실 금액을 입력하세요" name='price' value={upInput.price || ""} onChange={upInputHandle} /></StContentPrice>
                 <StContentInfo style={{ display: "flex" }}>
                     <div style={{ textAlign: "center", marginTop: "18px" }}>
                         <strong style={{ marginRight: "10px", marginBottom: "15px" }}>

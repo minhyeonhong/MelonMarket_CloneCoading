@@ -2,9 +2,8 @@ import React from 'react';
 
 import { getCookie } from '../../cookie/cookie';
 import Comment from "../../components/common/Comment"
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { __getContentDetail, __deleteContent, __editContent } from "../../redux/modules/contentsSlice"
+import { useDispatch } from "react-redux";
+import { __deleteContent } from "../../redux/modules/contentsSlice"
 
 import styled from "styled-components";
 const DetailContent = ({ content, comments, editHandler, paramId }) => {
@@ -14,8 +13,6 @@ const DetailContent = ({ content, comments, editHandler, paramId }) => {
     const deleteHandler = (id) => {
         dispatch(__deleteContent(id))
     }
-
-    console.log("content:", content)
 
     return (
         <div style={{ height: "1600px" }}>
