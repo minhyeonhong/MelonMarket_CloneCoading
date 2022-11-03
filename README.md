@@ -17,7 +17,8 @@
 <img width="1000" alt="스크린샷 2022-11-03 10 41 12" src="https://user-images.githubusercontent.com/86904667/199633305-76412fd4-d766-4729-b652-eca04ca62ec1.png">
 <img width="1000" alt="스크린샷 2022-11-03 10 42 30" src="https://user-images.githubusercontent.com/86904667/199633376-50019bdd-8b9f-47f6-9819-45e3046e5639.png">
 <img width="1000" alt="스크린샷 2022-11-03 10 43 21" src="https://user-images.githubusercontent.com/86904667/199633430-33ae923d-d449-47b9-b9b7-d81a74941808.png">
-
+<img width="1000" alt="스크린샷 2022-11-03 11 24 20" src="https://user-images.githubusercontent.com/86904667/199636746-e9fc2c86-9555-4b7a-a307-958b49ed78a7.png">
+<img width="1000" alt="스크린샷 2022-11-03 11 24 34" src="https://user-images.githubusercontent.com/86904667/199636751-288a1a75-4a84-44ae-a732-c169af97d6ce.png">
 
 <p align="justify">
 React / Spring 바탕으로 한 클론코딩 프로젝트<br>
@@ -133,11 +134,13 @@ manage modify feature with togle type
 - DetailCotentUpdate : 상세페이지 내용 수정용 컴포넌트
   DetailCotentUpdate : Modify to content component for each stuffs
 
-- HomeAd : 홈화면 광고 배너 
+- HomeAd : Home screen advertising banner
+
   HomeAd : Advertisement banner on Landing Page
 
 - List : 홈화면에서 보여지는 제품 리스트
-  List : List of shown stuffs on Landing Page
+  List : List of products displayed on the home screen
+
 
 
 ### 2. Pages
@@ -173,6 +176,11 @@ manage modify feature with togle type
 </p>
 
 <br>
+
+# 아쉬웠던 점
+- 기획단계 미스로 당근마켓 클론코딩이나, 거래기능 구현을 못함
+- 유저별 온도 기능 구현을 못함
+- 짧은 기간으로 추가 옵션 기능(소셜 로그인, 검색 기능, 실시간 알림, 대댓글, 자동로그인, 찜, 관심상품)구현을 못함
 
 ## 라이센스
 
